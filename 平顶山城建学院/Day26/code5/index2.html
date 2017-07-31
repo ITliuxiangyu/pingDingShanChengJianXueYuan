@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div ng-controller="HomeController">
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-resource.js"></script>
+<script>
+    angular.module('myApp', ['ngResource'])
+            .controller('HomeController', ['$scope', '$resource', function ($scope, $resource) {
+
+
+                var obj = $resource('../code4/wy.json');
+                // 如果返回的数据是对象的形式, 使用get方法
+                $scope.data = obj.get();
+                console.log($scope.data);
+
+                var obj2 = $resource("arr.json");
+
+                // 如果返回的数据是数组的形式, 我们使用query方法
+                $scope.data2 = obj2.query();
+                console.log($scope.data2);
+
+                var obj3 = $resource('../code4/wy.json');
+                // 第一个参数: params
+                // 第二个参数: 成功回调函数
+                // 第三个参数: 失败回调函数
+                // 一般不这样写, 如果这样写就和$http一样了
+                obj3.get({name: "waige"}, function successCallback(result) {
+                    console.log(result);
+                }, function errorCallback(e) {
+                    console.log(e);
+                });
+
+
+
+            }]);
+
+
+
+
+</script>

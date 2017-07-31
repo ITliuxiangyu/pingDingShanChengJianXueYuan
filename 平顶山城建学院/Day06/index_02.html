@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+
+        <div ng-controller="firstController">
+
+            <!--
+                原生js添加事件不能使用angular的方法
+                angular自己的方法里面都会调用发布方法 $scope.$apply();
+            -->
+            <button ng-click="mine.changeVal()">点我啊</button>
+            <p> {{ mine.name }} </p>
+
+
+
+        </div>
+
+
+    </body>
+</html>
+<script src="angular.js"></script>
+<script>
+
+
+    angular.module('myApp', [])
+            .controller('firstController', function($scope, $timeout) {
+
+                $scope.mine = {
+                    name: "waige",
+                    age: 20,
+                    changeVal: function () {
+                        $scope.mine.name = $scope.mine.name + " 好帅!";
+                        console.log($scope.mine.name);
+                    }
+                };
+
+                /*
+
+                setTimeout(function () {
+
+                    // 原生js可以修改作用域下的对象的值, 但是页面上的数据不会更新, 如果想要页面上的数据更新的话, 我们可以使用 $scope.$apply() 方法, 是发布的意思
+                    $scope.$apply(function () {
+                        $scope.mine.name = $scope.mine.name + " 好帅!";
+                        console.log($scope.mine.name);
+                    });
+
+                }, 5000);
+
+                */
+
+                $timeout(function() {
+
+                    $scope.mine.name = "帅哥";
+
+                }, 3000);
+
+
+
+
+
+            });
+
+    // 该函数内部不能操作$scope里面的变量, 因为作用域不同
+    function changeVal() {
+        $scope.mine.name = "hello";
+    }
+
+
+
+</script>

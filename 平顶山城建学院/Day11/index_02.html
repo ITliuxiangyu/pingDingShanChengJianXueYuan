@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <div ng-controller="myController"></div>
+
+    </body>
+</html>
+<script src="angular.js"></script>
+<script>
+
+    var app = angular.module('myApp', []);
+
+    // 创建一个服务
+    app.value('password', '123456');
+
+    app.controller('myController', ['$scope', 'password', 'MyFactory', function($scope, passord, MyFactory) {
+        $scope.mine = {
+            password: passord
+        };
+
+//        console.log(MyFactory);
+
+//        console.log(MyFactory.name, MyFactory.gender, MyFactory.age);
+
+//          MyFactory();
+
+        var result = MyFactory([1, 2, 3, 4, 5]);
+        alert(result);
+    }]);
+
+
+    // 通过 .factory创建的服务, 第二个参数为函数, 并且必须有返回值
+    app.factory('MyFactory', function($timeout) {
+
+//        return "abc";
+
+//        return { name: "歪哥", age: 19, gender: "男" };
+
+//        return function() {
+//            alert(123);
+//        };
+
+          return function (numArr) {
+              var sum = 0;
+              for (var i = 0; i < numArr.length; i++) {
+                  sum += numArr[i];
+              }
+              return sum;
+          };
+
+    });
+
+
+
+
+
+</script>

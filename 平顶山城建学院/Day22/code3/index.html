@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .fade {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+
+        .fade.grown-add {
+            transition: 2s linear;
+            width: 0px;
+        }
+
+        .fade.grown-add-active {
+            width: 100px;
+        }
+
+        .fade.grown-remove {
+            transition: 2s linear;
+            /*opacity: 1;*/
+            background-color: yellow;
+        }
+        .fade.grown-remove-active {
+            /*opacity: 0;*/
+            background-color: red;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <div>
+        <my-div></my-div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+<!--
+enter()：把元素添加到它的DOM中的父元素时触发，$animate服务给这个className添加了一个叫ng-enter、ng-enter-active的后缀来让我们建立动画（如果没有ng-enter、ng-enter等angular专用的动画类则不会触发）
+enter()方法带四个参数，element(正在建立动画的元素)、parent(这个元素的父元素，它是我们enter动画的焦点)、after（这个元素的兄弟元素，它将成为enter动画的焦点）、done(函数，经测试该函数由于版本更改，变成动画执行前执行)
+
+leave()：和enter对应，当它运行结束时会把元素从DOM移除，$animate服务给这个className添加了一个叫ng-leave、ng-leave-active的后缀来让我们建立动画（如果没有ng-leave、ng-leave-active等angular专用的动画类则不会触发）
+leave()方法带两个参数，element(正在建立动画的元素)、done(函数，经测试该函数由于版本更改，变成动画执行前执行)
+
+
+move()：触发moveDOM动画，在动画开始之前$animate服务或把元素插入到父容器或者直接加到after之后，如果有的话，$animate服务给这个className添加了一个叫ng-move、ng-move-active的后缀来让我们建立动画（如果没有ng-move、ng-move-avctive等angular专用的动画类则不会触发）
+move()方法带四个参数，element(正在建立动画的元素)、parent(这个元素的父元素，它是我们enter动画的焦点)、after（这个元素的兄弟元素，它将成为enter动画的焦点）、done(函数，经测试该函数由于版本更改，变成动画执行前执行)
+
+
+$animate事件经历步骤：
+1.enter和move会有元素被插入父元素或者移到父元素，或者after元素后面，其他无此步骤
+2.如果有函数参数先调用函数(以前的angular版本这个函数是动画结束后调用)
+3.运行所有在元素上原生动画效果
+4.$animate检查CSS样式寻找过渡/动画的持续事件和延迟属性
+5.angularjs动画特殊参数被添加到类
+6.$animate用定义过的次序事件等待完成
+7.动画结束，$animate移除angularjs动画的特殊类参数
+8.addClass或removeClass的会添加或删除类  leave会移除元素 其他无此步骤
+
+
+
+
+-->
+
+
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+    angular.module('myApp', ['ngAnimate'])
+//            .controller('MyController', ['$scope', function ($scope) {
+//
+//            }])
+            .directive('myDiv', ['$animate', '$timeout', function ($animate, $timeout) {
+
+                return {
+
+                    restrict: "E",
+                    replace: true,
+                    template: "<div class='fade'></div>",
+                    link: function (scope, ele, attrs) {
+
+                        $timeout(function () {
+
+                            // 第一个参数: 要操作的元素
+                            // 第二个参数: 添加的类名 grown-add, grown-add-active
+                            // 第三个参数: 可选, 如果是立即执行函数的话, 会在添加类之前执行, 这样我们就可以在这里做一些操作
+                            $animate.addClass(ele, 'grown', (function () {
+                                alert(1111);
+                            })());
+
+
+//                            $animate.enter()
+
+
+
+                        });
+
+                        ele.on('click', function () {
+                            alert(2222);
+                            
+                            scope.$apply(function () {
+
+                                // 第一个参数: 元素
+                                // 第二个参数: 类名
+                                // 第三个参数: 可选
+                                $animate.removeClass(ele, 'grown');
+                                
+                            });
+
+                        });
+
+
+
+
+
+
+                    }
+
+                };
+
+
+                
+            }]);
+
+
+
+
+
+</script>

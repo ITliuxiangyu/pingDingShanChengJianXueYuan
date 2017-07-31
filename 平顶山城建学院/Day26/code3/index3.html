@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>通过缓存实现数据共享</title>
+</head>
+<body>
+
+    <div ng-controller="HomeController">
+        <h2>{{ name }}</h2>
+
+    </div>
+    <div ng-controller="OtherController">
+
+        <h2>{{ name }}</h2>
+
+        <ul>
+            <li ng-repeat="friend in friendsArr">
+                名字: {{ friend.fName }} 年龄: {{ friend.age }}
+            </li>
+        </ul>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('HomeController', ['$scope', '$cacheFactory', function ($scope, $cacheFactory) {
+
+                var cache = $cacheFactory('waige');
+                cache.put('name', "歪哥");
+                cache.put("arr", [{ fName: "小玉", age: 22 }, { fName: "小伟", age: 38 }]);
+
+                $scope.name = cache.get('name');
+
+            }])
+            .controller('OtherController', ['$scope', '$cacheFactory', function ($scope, $cacheFactory) {
+
+                var myCache = $cacheFactory.get('waige');
+                $scope.name = myCache.get('name');
+                $scope.friendsArr = myCache.get('arr');
+
+            }]);
+
+
+
+
+
+</script>

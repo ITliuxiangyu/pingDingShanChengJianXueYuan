@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<style>
+			.red {
+				height: 50px;
+				width: 50px;
+				border-radius: 50%;
+				background: red;
+			}
+
+			.green {
+				height: 100px;
+				width: 100px;
+				border-radius: 50%;
+				background: green;
+			}
+		</style>
+	</head>
+	<body>
+		<div ng-controller="myController">
+			<div ng-style="mine.myStyle"></div>
+			
+			<div ng-init="x = 0" ng-class="{ red: x > 5, green: x <= 5 }"></div>
+
+
+			<button ng-click="changeVal()">点击</button>
+
+			<button ng-click="x = randomNum()">随机X</button>
+
+			<p>x = {{ x }}</p>
+
+
+		</div>
+		
+	</body>
+</html>
+<script src="angular.js"></script>
+<script>
+	angular.module('myApp', [])
+		.controller('myController', ['$scope', function($scope) {
+
+				$scope.mine = {
+					myStyle: {
+						background: "red",
+						height: "200px",
+						width: "400px"
+					}
+				};
+				$scope.changeVal = function() {
+					$scope.mine.myStyle = {
+						background: "blue",
+						height: "300px",
+						width: "400px"
+					};
+				};
+
+				//  随机一个[x, y]的整数
+				//  Math.floor(Math.random() * (y - x + 1) + x)
+				$scope.randomNum = function() {
+					return Math.floor(Math.random() * (10 - 1 + 1) + 1);
+				}
+
+		}]);
+
+
+
+
+</script>

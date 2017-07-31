@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        .content {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div ng-controller="MyController">
+
+
+        <div ng-click="doSth($event)" class="content" id="waige">点击</div>
+
+    </div>
+
+</body>
+</html>
+<!--
+    GSAPJS HTML5版本常用的有两个插件，一个是轻量级的库TweenLite.js，一个是TweenMax .js，TweenMax.js是继承与TweenLite.js的，引入了TweenMax.js后不仅可以使用TweenMax的 方法，同样可以直接使用TweenLite的方法
+-->
+<script src="../lib/angular.js"></script>
+<script src="../lib/TweenMax.js"></script>
+<script>
+
+    // TweenMax.js 继承于 TweenLite.js, 也就是说引入了TweenMax.js库以后也可以使用TweenLite的方法
+
+    angular.module('myApp', [])
+            .controller('MyController', ['$scope', function ($scope) {
+
+
+                $scope.doSth = function (e) {
+
+
+                    // 三个参数
+                    // 第一个参数: 目标元素
+                    // 第二个参数: 动画持续时间
+                    // 第三个参数: 对象(动画属性集合)
+//                    TweenLite.to(e.target, 2, {
+//                        x: 100,
+//                        y: 100,
+//                        height: 400,
+//                        width: 400
+//                    });
+
+                    // x, y根据元素的起始位置计算坐标
+                    TweenMax.to('#waige', 2, {
+
+                        x: 300,
+                        y: 300
+
+                    });
+
+
+
+
+
+                };
+                
+            }])
+
+
+
+
+
+</script>

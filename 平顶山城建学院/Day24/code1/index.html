@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>借助$rootScope来实现控制器间的通讯</title>
+</head>
+<body>
+
+    <div ng-controller="FirstController">
+        <button ng-click="emit()">点击</button>
+    </div>
+    <div ng-controller="SecondController"></div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+    /*
+    *  一般情况下, 我们不要借助$rootScope来实现控制器间的通讯,
+     因为angular事件系统会监听和传播, 会降低应用的性能, 
+     $rootScope是一个全局作用域, 本身有很多监听器和传播方法,
+      使用$rootScope也会污染全局作用域, 
+      现在的路由模式也把各个控制器(模块)都分离开了, 更加的组件化, 
+      我们一般通过服务来时间不同页面之间的通讯
+    *
+    *
+    * */
+    angular.module('myApp', [])
+            // 运行于配置之后, 服务之前
+            .run(['$rootScope', function ($rootScope) {
+
+                $rootScope.$on('hello', function (event, msg) {
+
+                    $rootScope.$broadcast("down", msg);
+
+                });
+                
+            }])
+            .controller('FirstController', ['$scope', function ($scope) {
+
+                $scope.emit = function () {
+                    $scope.$emit("hello", "world");
+                };
+
+                
+            }])
+            .controller('SecondController', ['$scope', function ($scope) {
+
+
+                $scope.$on('down', function (event, msg) {
+
+                    alert(msg);
+
+                });
+
+
+
+            }]);
+    
+    
+    
+    
+</script>

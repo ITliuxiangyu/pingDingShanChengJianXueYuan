@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>js动画</title>
+        <style>
+
+            .move {
+                background-color: red;
+                margin: 10px 0;
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <div ng-controller="MyController">
+
+            <div ng-repeat="num in mainModel.numArr" class="move">
+
+                数字<span>{{ num }}</span>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+
+    angular.module('myApp', ['ngAnimate'])
+            .controller('MyController', ['$scope', '$timeout', '$interval', function ($scope, $timeout, $interval) {
+
+                $scope.mainModel = new Object();
+                $scope.mainModel.numArr = [];
+
+                var i = 0;
+                var interval;
+                var animateFn = function () {
+
+                    i++;
+                    $scope.mainModel.numArr.push(i);
+
+                    if (i > 10) {
+                        $interval.cancel(interval);
+                    }
+                    
+                };
+
+                interval = $interval(animateFn, 2000);
+                
+
+
+
+            }])
+            // 第一个参数, DOM元素的类名
+            .animation('.move', ['$interval', function ($interval) {
+
+                return {
+
+                    // 下去以后用tween.js玩一下
+
+                    enter: function (element, done) {
+
+                        var op = 0;
+                        var interval;
+                        var animationFn = function () {
+                            op += 10;
+                            element.css('opacity', op / 100);
+                            if (op > 100) {
+                                $interval.cancel(interval);
+
+                                // 动画完成调用done()函数
+                                done();
+                            }
+                            
+                        }
+                        // 刚开始透明度设置为0
+                        element.css('opacity', 0);
+                        interval = $interval(animationFn, 500);
+                        return function () {
+                            // 动画完成或关闭执行的函数
+                            console.log(1111);
+                        };
+
+                    }
+
+
+
+
+                };
+
+
+            }]);
+
+
+
+
+
+
+</script>

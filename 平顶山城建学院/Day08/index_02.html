@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>自定义过滤器</title>
+    </head>
+    <body>
+
+        <div ng-controller="myController">
+
+            <!--{{ mine.name | myFilter }}-->
+            <br>
+            <!--{{ mine.arr | myFilter }}-->
+            <br>
+            <!--{{ mine.people | myFilter : "test" }}-->
+
+            <br>
+
+            {{ mine.people | myFilter : "小" }}
+
+            {{ mine.data }}
+        </div>
+
+    </body>
+</html>
+<script src="angular.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('myController', function($scope, $filter) {
+
+                $scope.mine = {
+                    name: "歪哥",
+                    arr: [1, 2, 3, 4],
+                    people: [
+                        { name: "小哲", age: "18" },
+                        { name: "小松", age: "23" },
+                        { name: "小东", age: "19" }
+                    ],
+                    data: null
+                };
+
+                $scope.mine.data = $filter("myFilter")($scope.mine.people, "哲");
+
+            })
+            .filter("myFilter", function($rootScope) {
+
+                // 如果采用 {{  }} 的方式, obj就是通道左边的数组, str就是自定义过滤器的名字 后面 : 后面的字符串
+
+                // 如果采用$filter的方法, 那么obj就是 $filter("myFilter")($scope.mine.people, "哲") 中的 $scope.mine.people, str就是"哲"
+
+                return function(obj, str) {
+
+                    var newArry = [];
+
+                    angular.forEach(obj, function(data, index) {
+
+                        // 拿到data的所有属性名
+                        var str1 = JSON.stringify(data);
+
+                        // 正则, 匹配特殊字符
+                        var reg = /[":,\s\{\}]+/g;
+                        var result = str1.split(reg);
+                        result.shift();
+                        result.pop();
+                        var keyArr = [];
+                        // 把属性名都装到数组中
+                        for (var i = 0; i < result.length; i += 2) {
+                            keyArr.push(result[i]);
+                        }
+                        for (var i = 0; i < keyArr.length; i++) {
+                            console.log(data[keyArr[i]] + "", str);
+                            if ((data[keyArr[i]] + "").indexOf(str) != -1) {
+                                newArry.push(data);
+                                break;
+                            }
+                        }
+
+                    });
+
+                    return newArry;
+                };
+
+             });
+
+            for (var key in {name: "歪哥", age: "18"}) {
+                console.log(key);
+            }
+
+
+
+</script>

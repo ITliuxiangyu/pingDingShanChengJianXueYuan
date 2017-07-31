@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--
+    指令名字中的大写字母要变成 -小写
+    eg: myFirstDirective =>  my-first-directive
+
+-->
+    <p my-directive class="waige">
+
+        大家好, 这是自定义指令
+
+    </p>
+
+    <!--<my-directive>-->
+
+        <!--大家好, 这是自定义指令-->
+
+    <!--</my-directive>-->
+
+    <!--<div class="my-directive">-->
+
+        <!--歪哥666-->
+
+    <!--</div>-->
+
+    <!-- 指令后面跟一个空格 -->
+    <!--directive:my-directive-->
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+    angular.module('myApp', [])
+            .directive('myDirective', ['$http', function ($http) {
+
+                return {
+
+                    // 指令出现的形式
+                    // A 代表指令作为属性使用
+                    // E 代表指令作为元素使用
+                    // C 代表指令作为类来使用
+                    // M 代表指令作为注释使用
+//                    restrict: "AECM"
+//                    restrict: "AECM",
+                    // 一般情况下适用属性的形式, 属性的形式支持老版本的浏览器
+                    restrict: 'A',
+                    // 模板, 可以是字符串, 也可以是函数
+                    // 模板里面的内容会覆盖掉指令元素或者是指令所在元素里面的内容
+//                    template: "<div>hello, angular!</div>",
+
+                    // 如果是函数, 返回值为模板字符串
+//                    template: function (tElement, tAttrs) {
+//
+//                        // 第一个参数为 指令元素本身 或者 指令所在的元素
+//                        // 第二个参数: 第一个参数的所有属性
+//                        console.log(tElement, tAttrs);
+//
+//                        return "<div>hello, angular</div>"
+//
+//                    },
+
+                    // 用法和template一样, 只不过后面是文件路径
+//                    templateUrl: "home.html",
+                    templateUrl: function (tElement, tAttrs) {
+
+
+                        // 如果模板路径和本文件不在一个域下, 会出现跨域问题, 需要开启服务器( 内部会做一个ajax请求该路径下的文件 )
+                        return "home.html";
+
+
+                    },
+
+
+
+                    // 如果是作为注释的形式存在, 需要加上replace属性, 并且值为true
+                    // 默认值为false, 模板中的内容会以子元素的形式插入到指令元素 或者 指令所在的元素, 如果值为true, 模板中只能有一个根元素, 该根元素会替换掉指令元素或者指令所在元素
+                    replace: true
+
+
+
+                };
+                
+            }])
+
+
+
+
+
+
+</script>
+
+

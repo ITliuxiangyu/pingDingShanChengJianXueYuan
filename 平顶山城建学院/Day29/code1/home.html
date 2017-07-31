@@ -1,0 +1,30 @@
+<ion-view>
+
+    <ion-content has-bouncing="false" delegate-handle="mainScroll">
+
+        <ion-scroll style="width: 150px; height: 150px; margin: 150px 0 0 100px; background: red;" direction="x y" paging="false" delegate-handle="smallScroll" on-scroll="scroll()">
+
+            <div style="width: 750px; height: 750px; background: yellow;" class="scroll">
+                <div>div1</div>
+                <div>div2</div>
+                <div>div3</div>
+                <div>div4</div>
+                <div>div5</div>
+            </div>
+
+
+
+        </ion-scroll>
+        <button ng-click="smallScrollToTop()">顶部</button>
+
+
+        <h2>顶部</h2>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <button ng-click="mainScrollToTop()">回到顶部?</button>
+
+    </ion-content>
+
+
+
+
+</ion-view>

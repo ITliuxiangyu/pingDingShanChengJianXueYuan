@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		<input type="text" id="phone" placeholder="请输入手机号" />
+		<input type="button" id="check" value="检测" />
+	</body>
+</html>
+<script>
+    /*
+    // 判断该字符串中是否包含数字
+    var str = "abc9bdn";
+    var arr = str.split("");
+    console.log(arr);
+    var flag = false;
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] >= "0" && arr[i] <= "9") {
+            flag = true;
+            break;
+        }
+    }
+    console.log(flag);
+    
+    var reg = /\d/;
+    var result = reg.test(str);
+    console.log(result);
+    
+    var str1 = "abble";
+    result = str1.replace(/b{2}/g, "pp");
+    console.log(result);
+    */
+   
+    // 判断该字符串中是否包含除大写字母, 小写最, 数字之外的其它字符, 打印出大小写字母和数字
+    /*
+    var flag = false;
+    var str = "ABC-abc-567";
+    var arr = str.split("");
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] >= "a" && arr[i] <= "z") {
+            console.log(arr[i] + "是小写字母");
+        } else if (arr[i] >= "A" && arr[i] <= "Z") {
+           console.log(arr[i] + "是大写字母");
+        } else if (arr[i] >= "0" && arr[i] <= "9") {
+            console.log(arr[i] + "是数字");
+        } else {
+            flag = true;
+            console.log(arr[i] + "是其它字符");
+        }
+    }
+    console.log(flag);
+    */
+   
+   // 正则表达式
+   // regular expression
+   // 描述了匹配字符串的规则(模式), 可以检查一个字符串中是否包含某子串, 将匹配到的字串进行替换, 或者取出字符串中符合规则的子串
+   // 正则表达式中有两种字符
+   // 普通字符  比如 a-z, 0-9, A-Z
+   // 元字符, 具有特定意义的字符, 可以规定其前导字符出现的模式, eg: ?, *, +
+   
+   // 创建正则表达式对象
+   // var 变量名 = new RegExp(参数1, 参数2);
+   /*
+        参数1: pattern, 模式, 匹配的规则, 必须是字符串
+        参数2: attributes, 属性, 可选值
+    */
+    var reg = new RegExp("ab");
+    
+    // 正则表达式的方法
+    // test(字符串)
+    // 作用: 用于判断字符串是否满足正则表达式的规则
+    // 返回值: 布尔值, true, 满足; false: 不满足
+    
+    console.log(reg.test("abcd"));
+    console.log(reg.test("acbd"));
+    console.log(reg.test("cabd"));
+    
+    // 创建正则表达式的简化方式
+    // var 变量名 = /参数1/参数2
+    /*
+        参数1: pattern  匹配的规则
+        参数2: attributes 属性, 可以省略
+     */
+    var reg2 = /.jpg/;
+    console.log(reg2.test("img.jpg"));
+    console.log(reg2.test("img2.png"));
+    
+    /*
+        参数2: attributes, 可选值
+        g: 全局搜索 (global)
+        i: 忽略大小写
+        m: 进行多行匹配
+     */
+    /*
+        g: 全局搜索, 即使搜索到匹配的子串还会继续搜索, 默认是如果搜索到匹配的字串就不会再搜索(局部搜索)
+      
+     */
+     
+     // 特殊字符
+     /*
+        \n, 换行
+        \t, 制表符 tab
+        \r, 回车
+        \d, 代表数字 0-9
+        \D, 非数字
+        \w, 数字, 字母, 下划线, 汉字
+        \W, 非(数字, 字母, 下划线, 汉字)
+        \s, 空白符(空格, 回车, 制表符)
+        \S, 非空白符
+        . , 除\n之外的字符
+        [], 用于匹配括号中出现的字符
+        [^], 用于匹配除括号中出现的其它字符
+      */
+     var str2 = "Hello,\n world";
+     console.log(str2);
+     var reg2 = /\n/;
+     console.log(reg2.test(str2));
+     
+     
+     var str3 = "\tNice to meet you!";
+     console.log(str3);
+     var reg3 = /\t/;
+     console.log(reg3.test(str3));
+     
+     var str4 = "abcdef";
+     var reg4 = /\d/;
+     console.log(reg4.test(str4));
+     
+     var str5 = "1237027";
+     var reg5 = /\D/;
+     console.log(reg5.test(str5));
+     
+     var str6 = "-=!";
+     var reg6 = /\w/;
+     console.log(reg6.test(str6));
+    
+     var str7 = "abc<c";
+     var reg7 = /\W/;
+     console.log(reg7.test(str7));
+     
+     var str8 = "abc bcd kj";
+     var reg8 = /\s/;
+     console.log(reg8.test(str8));
+     
+     var str9 = "       ";
+     var reg9 = /\S/;
+     console.log(reg9.test(str9));
+     
+     var str10 = "\n\n\n";
+     var reg10 = /./;
+     console.log(reg10.test(str10));
+     
+     var str11 = "abcdef8ad";
+     var reg11 = /[0123456789]/;
+     console.log(reg11.test(str11));
+     
+     var str12 = "bbbc";
+     var reg12 = /[^b]/;
+     console.log(reg12.test(str12));
+     
+     // 个数字符
+     // 连字符 - , 用于指定字符的范围
+     // [0-9], 代表0-9的数字
+     // [a-z], 代表小写字母
+     // [A-Z], 代表大写字母
+     
+     var str13 = "jdf2u30if923f";
+     var reg13 = /[a-z0-9A-Z]/;
+     console.log(reg13.test(str13));
+     
+     var reg14 = /[^a-z0-9A-Z]/;
+     console.log(reg14.test(str13));
+     
+     // 字符串的方法
+     // match(正则表达式)
+     // 返回一个数组
+     var str15 = "b88a88c88d";
+     var reg15 = /88/g;
+     var arr = str15.match(reg15);
+     console.log(arr, arr.length);
+     
+     // search(正则表达式)
+     // 返回匹配到的子串在字符串中的位置, 如果没有符合条件的字串, 返回-1;
+     var reg16 = /love2/;
+     var str16 = "刘丰硕love小立";
+     console.log(str16.search(reg16));
+     
+     // split(字符串 或 正则表达式)
+     // 把文本中的数字去掉
+     var str17 = "aa2bb3cc5dd";
+     var reg17 = /\d/;
+     var arr = str17.split(reg17);
+     console.log(arr);
+     var resultStr = arr.join("");
+     console.log(resultStr);
+     
+     var str18 = "438186531@qq.com";
+     var reg18 = /\./;
+     console.log(reg18.test(str18));
+     console.log(str18.split(reg18));
+     console.log(str18.split(/[@\.]/));
+     
+     // replace(正则表达式, 字符串)
+     // 返回值, 替换过后的字符串, 原字符串不会被改变
+     var str19 = "I hate you very much!!!";
+     var reg19 = /hate/;
+     var result = str19.replace(reg19, "love");
+     console.log(result, str19);
+     
+     
+     // 量词
+     // {n}, 重复出现n次
+     var str20 = "a1b22c333d4444";
+     console.log(str20.match(/\d{2}/g));
+     // {n,}, 重复出现至少n次
+     console.log(str20.match(/\d{2,}/g));
+     // {n,m}, 重复出现n-m次
+     var str21 = "abc89djhjh05dkjsflkjflds";
+     console.log(str21.match(/[a-z]{3,5}/g));
+     // +, {1,} 至少出现一次
+     // *, {0,} >= 0 次
+     // ?, {0,1} 
+     
+     var str22 = "450000";
+     console.log(str22.match(/[0-9]/g));
+     console.log(str22.match(/[0123456789]/g));
+     console.log(str22.match(/\d{6}/));
+     
+     var str23 = "a1b22c333d4444e55555";
+     console.log(str23.match(/\d{1}/g));
+     console.log(str23.match(/\d{2}/g));
+     console.log(str23.match(/\d{3,}/g));
+     
+     var str24 = "aba1ba888ba99999bacb";
+     var reg = /a\d*b/g;
+     console.log(str24.match(reg));
+     
+     // 定位符
+     // ^ 限定在开头出现
+     // $ 限定在结尾出现
+     // \b 匹配到单词的左右边界
+     var str25 = "1abcfdjsklajdfljds";
+     // 以abc开头
+     console.log(str25.match(/^abc/g));
+     // 以.jpg结尾
+     var str26 = "beautifulgirl.jpg";
+     // \. 代表的 .
+     // . 代表的出 \n之外的其它字符
+     console.log(str26.match(/\.jpg$/g));
+     
+     var str27 = "moonmoney mousemo mo";
+     // 单词的左边界是mo
+     console.log(str27.match(/\bmo/g));
+     // 单词的右边界是mo
+     console.log(str27.match(/mo\b/g));
+     console.log(str27.match(/\bmo\b/g));
+     
+     // 找出数组中只有abc的字符串
+     var arr = ["abc", "abcabc", "abc5555abc"];
+     var reg = /\babc\b/g;
+     for (var i = 0; i < arr.length; i++) {
+         if (reg.test(arr[i])) {
+             console.log(arr[i], i + "是下标");
+         }
+     }
+     
+     // 简单判断是不是手机号
+     // 以11位数字开头, 以11为数字结尾, 并且开头的数字是1
+     var regPhone = /^1\d{10}$/;
+     check.onclick = function() {
+         if (regPhone.test(phone.value)) {
+             alert("是手机号");
+         } else {
+             alert("不是手机号");
+         }
+     }
+     
+     
+     // 分组符 ()
+     var str1 = "abcabcabcc";
+     var reg1 = /abc{2}/g;
+     console.log(str1.match(reg1));
+     // aa ab ac ba bb bc ca cb cc
+     console.log(str1.match(/[abc]{2}/g));
+     console.log(str1.match(/(abc){2}/g));
+     
+     // |, 或者
+     var reg = /(H|h)ello/g;
+     var str = "Hellohello";
+     console.log(reg.test(str));
+     console.log(str.match(reg));
+     
+     // 转义字符
+     // 如果要匹配一下字符必须加上转义字符 \
+     // .  $  {  }  (  )  |  +  - ? * ^ / \ 
+     
+     // 判断字符串是不是 http:// 开头
+     var reg = /^http:\/\//g;
+     var str = "http://www.waige.com";
+     console.log(reg.test(str));
+
+     
+     
+     
+     
+     
+    
+    
+    
+</script>

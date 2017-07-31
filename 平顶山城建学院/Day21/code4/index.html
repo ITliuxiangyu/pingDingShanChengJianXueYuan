@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        .content {
+            width: 300px;
+            height: 300px;
+            border: 2px solid black;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button {
+            width: 300px;
+            height: 300px;
+            font-size: 25px;
+            background-color: red;
+        }
+        button.other {
+            background-color: green;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+
+    <div class="content">
+
+        <ng-view class="template"></ng-view>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/jquery.js"></script>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-route.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+
+    angular.module('myApp', ['ngAnimate', 'ngRoute'])
+            .config(['$routeProvider', function ($routeProvider) {
+
+                $routeProvider.when('/', {
+
+                    templateUrl: "home.html",
+                    controller: "MyController"
+
+                });
+
+                $routeProvider.when('/other', {
+
+                    templateUrl: "other.html",
+                    controller: "MyController"
+
+                });
+                $routeProvider.otherwise('/');
+
+
+            }])
+            .controller('MyController', ['$scope', '$location', function ($scope, $location) {
+
+                $scope.mainModel = {
+
+                    goToNewView: function () {
+                        $location.path('/other');
+                    },
+                    goBack: function () {
+                        window.history.go(-1);
+                    }
+
+                }
+
+            }])
+            .value("AnimateModel", { isFirst: true })
+            .animation('.template', ['AnimateModel', function (AnimateModel) {
+
+                return {
+
+                    enter: function (element, done) {
+
+                        if (AnimateModel.isFirst) {
+
+                            AnimateModel.isFirst = false;
+                        } else {
+
+                            var myClass = {
+                                position: "absolute",
+                                left: "300px",
+                                opacity: 0
+                            };
+
+                            // jQuery
+                            element.css(myClass).animate({
+                                left: 0,
+                                opacity: 1
+                            }, 450, function () {
+                                // 动画执行完成
+                                // 动画完成以后手动调用一下, 这个时候会走下面ruturn回调, 如果不写, $animate并不知道动画完成, 这里相当于告诉angular动画已经完成(关闭或取消)
+//                                done();
+                            });
+
+                            // 动画关闭或取消
+                            return function () {
+                                alert(1111);
+                            };
+
+
+                        }
+
+
+                    },
+                    leave: function (element, done) {
+
+                        var myClass = {
+                            position: "absolute",
+                            bottom: 0,
+                            opacity: 1
+
+                        };
+
+                        element.css(myClass).animate({
+
+                            bottom: "300px",
+                            opacity: 0
+
+                        }, 450, done);
+
+
+
+
+                        return function () {
+                            console.log("动画结束");
+                        };
+                        
+                    }
+
+
+
+
+
+
+
+                };
+
+
+                
+            }]);
+
+
+
+
+
+</script>

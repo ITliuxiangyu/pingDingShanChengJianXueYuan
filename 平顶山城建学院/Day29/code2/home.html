@@ -1,0 +1,33 @@
+<ion-view>
+        <ion-side-menus>
+            <!-- 中间内容 -->
+            <ion-side-menu-content style="background: red;" drag-content="false">
+
+                <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+                <h2>我是中间内容</h2>
+
+                <button ng-click="waigeLT()">打开|关闭</button>
+
+
+            </ion-side-menu-content>
+
+            <!-- 左侧菜单 -->
+            <ion-side-menu side="left" style="background: yellow;">
+
+                <h2>我是左边内容</h2>
+                <a menu-close href="#/home" class="item">首页</a>
+
+            </ion-side-menu>
+
+            <!-- 右侧菜单 -->
+            <ion-side-menu side="right" style="background: blue;">
+
+                <h2>我是右边内容</h2>
+
+            </ion-side-menu>
+        </ion-side-menus>
+
+
+
+
+</ion-view>

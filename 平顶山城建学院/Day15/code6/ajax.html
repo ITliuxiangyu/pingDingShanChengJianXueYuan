@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <button onclick="getData()">请求数据</button>
+
+</body>
+</html>
+<script src="../lib/jquery-1.12.3.min.js"></script>
+<script>
+
+    function getData() {
+
+        var myUrl = "http://c.m.163.com/nc/article/headline/T1348647853363/0-10.html";
+
+        var url = "http://localhost:3000?myUrl=" + myUrl;
+
+        // ajax 请求不用写回调, 内部会帮我们创建一个回调函数, 名字随机, 每次都不一样
+        $.ajax({
+            type: "get",
+            dataType: "jsonp",
+            url: url,
+            success: function (data) {
+              console.log(data);
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+
+    }
+
+
+
+
+</script>

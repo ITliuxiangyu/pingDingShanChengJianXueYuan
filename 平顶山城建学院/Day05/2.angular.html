@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- ng-app: 作用域 $rootScope -->
+<html lang="en" ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+	<body>
+		<div ng-controller="firstController">
+			{{ person.name }}
+			{{ person.gender }}
+			{{ person.hobby }}
+		</div>
+
+		{{ person.name }} {{ person.gender }} {{ person.hobby }}
+
+		
+	</body>
+</html>
+<script src="angular.js"></script>
+<script>
+	// 为了方便管理, 我们将一个应用划分为很多模块
+	var myApp = angular.module('myApp', []);
+
+	// console.log(myApp);
+	//  创建控制器的时候, anguar会帮我们创建一个$scope(作用域)变量, $scope都是继承于$rootScope, 该$scope持有的数据只能在具有ng-controller="firstController"指令元素下使用
+	myApp.controller('firstController', function($scope) {
+		$scope.person = {
+			name: "周毅",
+			gender: "男",
+			hobby: "女"
+		};
+		$scope.name = "hello, world!";
+
+	});
+
+
+
+</script>

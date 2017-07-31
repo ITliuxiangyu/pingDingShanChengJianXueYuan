@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>ngClass动画</title>
+
+    <style>
+        .content {
+            width: 200px;
+            height: 100px;
+            background-color: red;
+        }
+
+        /*
+           动画初始状态
+        */
+        .content.grown-add {
+
+            transition: 2s linear;
+            transform: rotate(0deg);
+
+        }
+
+        /*
+            过渡动画中添加了active才会有动画效果
+        */
+        .content.grown-add-active {
+            transform: rotate(360deg);
+        }
+
+
+        .content.grown-remove {
+            animation: remove 1s linear;
+            
+        }
+        
+        @keyframes remove {
+            0%, 40%, 80% {
+                transform: skewX(20deg);
+            }
+            20%, 60%, 100% {
+                transform: skewX(-20deg);
+            }
+            
+        }
+
+    </style>
+</head>
+<body>
+
+    <div ng-controller="MyController">
+
+         <!--ng-class指令和之前结构类动画不同, 该指令监测到DOM事件以后, $animate会给DOM元素添加 className-add, className-add-active, className-remove, className-remove-active-->
+        <div ng-class="{ grown: grow }" class="content"></div>
+
+        <button ng-click="grow = true">添加样式</button>
+        <button ng-click="grow = false">移除样式</button>
+
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+    angular.module('myApp', ['ngAnimate'])
+            .controller('MyController', ['$scope', function ($scope) {
+
+                $scope.mine = {
+                    grow: false
+                };
+
+
+            }]);
+
+
+
+</script>

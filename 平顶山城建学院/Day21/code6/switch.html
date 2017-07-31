@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .switch {
+            width: 300px;
+            background-color: red;
+        }
+
+        .switch.ng-enter {
+            transition: 2s linear;
+            transform: translateX(-500px);
+        }
+        .switch.ng-enter-active {
+            transform: translateX(0px);
+        }
+
+        .switch.ng-leave {
+            transition: 2s linear;
+            transform: translateY(0px);
+        }
+        .switch.ng-leave-active {
+            transform: translateY(-500px);
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div ng-controller="MyController">
+
+        <div ng-switch="mine.name">
+            <div ng-switch-when="张三" class="switch">
+
+                <h2>张三</h2>
+
+            </div>
+            <div ng-switch-when="李四" class="switch">
+
+                <h2>李四</h2>
+
+            </div>
+            <div ng-switch-when="王五" class="switch">
+
+                <h2>王五</h2>
+
+            </div>
+        </div>
+
+        <button ng-click="mine.name = '张三'">点击</button>
+        <button ng-click="mine.name = '李四'">点击</button>
+        <button ng-click="mine.name = '王五'">点击</button>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+
+    angular.module('myApp', ['ngAnimate'])
+            .controller('MyController', ['$scope', function ($scope) {
+
+                $scope.mine = {
+                    name : "张三"
+                };
+
+            }]);
+
+
+</script>

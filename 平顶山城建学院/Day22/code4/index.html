@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../lib/animate.css">
+    <style>
+
+        .test {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+
+        .bounce-remove {
+            animation: shake 3s;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div ng-controller="MyController">
+
+        <!--
+            animate.css 可以和 angular-animate.js配合使用, 作出炫酷的动画效果
+        -->
+
+        <div ng-class="{ bounce: mine.show }" class="animated test"></div>
+
+        <button ng-click="mine.show = !mine.show">点击</button>
+
+    </div>
+
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+    angular.module('myApp', ['ngAnimate'])
+            .controller('MyController', ['$scope', function ($scope) {
+
+                $scope.mine = {
+                    show: false
+                };
+                
+            }]);
+    
+    
+    
+    
+</script>

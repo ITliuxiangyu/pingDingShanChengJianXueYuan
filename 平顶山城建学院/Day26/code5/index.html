@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div ng-controller="HomeController">
+
+        <h3 ng-repeat="news in data.T1348647853363">
+            {{ news.title }}
+        </h3>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-resource.js"></script>
+<script>
+
+    /*
+    *  angular给我们提供了一个可选服务$resource, 也是网络交互方面的服务,
+     这个服务创建一个资源对象, 把网络请求当成一个资源, 
+    我们可以用它和支持RESTful的服务器端数据源进行交互
+    *
+    * 使用起来非常方便, 因为其封装更接近底层, 使用它可以避开复杂的回调
+    *
+    * */
+    angular.module('myApp', ['ngResource'])
+            .controller('HomeController', ['$scope', '$resource', function ($scope, $resource) {
+
+                var obj = $resource('../code4/wy.json');
+                $scope.data = obj.get();
+                console.log($scope.data);
+                console.log($scope.data.T1348647853363);
+
+                // 为什么第一个打印有数据, 最后一个打印为undefined呢?
+                // 虽然看起来是同步, 其实是异步执行,
+                // obj.get()是一个resouse资源对象, 会被$resource处理, 在获取到数据后, 
+                // $resource会把数据填充到$scope.data中, 所有直接使用$scope.data的方法都会收到
+
+                // 为什么在DOM中可以直接使用 data.T1348647853363?
+                // 其实刚开始也是没有数据的, 只不过当$scope.data有值得时候或触发脏值检查, 原生js不会
+
+                // 有没有发现这样写代码简单了很多? controller中省下了很多的逻辑操作代码
+
+
+            }]);
+
+
+
+
+</script>

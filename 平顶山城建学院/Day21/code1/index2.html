@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>关键帧交错动画</title>
+    <style>
+        .move {
+            height: 50px;
+            width: 200px;
+            background-color: red;
+            margin-top: 10px;
+        }
+
+        .move.ng-enter {
+
+            animation: move .2s linear;
+            
+        }
+        
+        @keyframes move {
+            from {
+                opacity: 0;
+                transform: translate(900px) rotate(0deg);
+            }
+            to {
+                opacity: 1;
+                transform: translate(0px) rotate(360deg);
+            }
+        }
+
+        .move.ng-enter-stagger {
+            animation-delay: .3s;
+
+            /*
+                防止意外继承css基础类的保护, 如果意外继承了css样式, 该交错效果就会被忽略
+            */
+            animation-duration: 0s;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div ng-controller="MyController">
+
+        <div ng-repeat="name in mainModel.nameArr" class="move">
+
+            <span>{{ name }}</span>
+        </div>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+    angular.module('myApp', ['ngAnimate'])
+            .controller('MyController', ['$scope', '$timeout', function ($scope, $timeout) {
+
+                $scope.mainModel = {};
+
+                $timeout(function () {
+
+                    $scope.mainModel.nameArr = ["小李", "小张", "小花", "小吕"];
+
+                }, 1);
+
+
+            }]);
+
+
+
+
+</script>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button onclick="getData()">请求数据</button>
+</body>
+</html>
+<script>
+    function getData() {
+
+        // jsonp
+        // 通过创建动态script元素访问服务器, 把回调函数名作为查询参数传递给服务器, 服务器请求到数据以后把数据放入到回调函数中返回给前端
+
+        // 动态创建script元素
+        var script = document.createElement('script');
+
+        // 网易首页接口, 要当做参数传给服务器
+        var myUrl = "http://c.m.163.com/nc/article/headline/T1348647853363/0-140.html";
+
+        script.src = "http://localhost:3000?myUrl=" + myUrl + "&callback=callBackFunc";
+
+        document.documentElement.appendChild(script);
+
+    }
+
+    function callBackFunc(data) {
+
+        // 字符串类型
+        var dataObj = JSON.parse(data);
+        console.log(dataObj);
+
+    }
+
+
+
+
+</script>

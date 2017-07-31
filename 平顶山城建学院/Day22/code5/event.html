@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #rect {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+
+
+    </style>
+</head>
+<body ng-controller="MyController">
+
+    <div id="rect">我是demo</div>
+
+    <button ng-click="doSth('restart')">重新开始</button>
+    <button ng-click="doSth('pause')">暂停</button>
+    <button ng-click="doSth('resume')">继续</button>
+    <button ng-click="doSth('reverse')">反转</button>
+
+    <h3>{{ label }}</h3>
+
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/CSSPlugin.js"></script>
+<script src="../lib/EasePack.js"></script>
+<script src="../lib/TweenLite.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('MyController', ['$scope', function ($scope) {
+
+                var i = 0;
+                function changeLabel(pm) {
+
+                    $scope.$apply(function () {
+                        $scope.label = pm + i++;
+                    });
+
+                }
+
+                var tw = TweenLite.to('#rect', 3, {
+
+                    x: 900,
+                    y: 400,
+                    ease: Back.easeInOut,
+
+                    // 动画开始时执行
+                    onStart: changeLabel,
+
+                    // onStart事件的参数
+                    onStartParams: ["动画开始....."],
+
+                    // 动画开始到动画结束过程中一直在调用该方法
+                    onUpdate: changeLabel,
+                    // onUpdate事件参数
+                    onUpdateParams: ["动画进行ing...."],
+
+                    // 动画结束时调用
+                    onComplete: changeLabel,
+                    // onComplete事件参数
+                    onCompleteParams: ['动画结束啦......!!!'],
+
+                    // 反转结束时执行的事件(回到原点)
+                    onReverseComplete: changeLabel,
+                    // onReverseComplete事件参数
+                    onReverseCompleteParams: ['已经回到原点.....']
+
+
+                });
+
+                console.log(tw);
+                
+                $scope.doSth = function (type) {
+
+                    switch (type) {
+
+                        case "restart":
+                            tw.restart();
+                            break;
+                        case "pause":
+                            tw.pause();
+                            break;
+                        case "resume":
+                            tw.resume();
+                            break;
+                        case "reverse":
+                            tw.reverse();
+                            break;
+                    }
+
+                    
+                };
+
+
+
+            }]);
+    
+    
+    
+    
+</script>

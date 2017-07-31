@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div ng-controller="ParentController">
+
+        <h2>{{ animal }}</h2>
+
+
+        <div ng-controller="ChildController">
+
+            <h2>{{ name }}</h2>
+
+            <button ng-click="emit()">向父级传播</button>
+
+        </div>
+
+
+    </div>
+
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+    
+    angular.module('myApp', [])
+            .controller('ParentController', ['$scope', function ($scope) {
+
+
+                // $on监听消息
+                // 第一个参数: 消息的名称
+                // 第二个参数: 回调函数, 第一个参数: 事件对象, 第二个参数: 消息内容
+                $scope.$on("hello", function (event, msg) {
+
+                    console.log(event);
+                    console.log(msg);
+
+                    // targetScope
+                    // 传播事件的作用域
+                    console.log(event.targetScope.name);
+
+                    event.targetScope.name = "张正";
+
+                    // currentScope
+                    // 当前的作用域
+                    event.currentScope.animal = "🐩";
+
+                    // 事件名字
+                    console.log(event.name);
+
+
+                });
+
+
+                
+            }])
+            .controller('ChildController', ['$scope', function ($scope) {
+
+                $scope.emit = function () {
+
+                    // $emit 服务: 让事件从子作用域传递到父作用域
+                    // 第一个参数: 消息的名称
+                    // 第二个参数: 消息 (可以为字符串, 数组, 对象)
+//                    $scope.$emit('hello', 'world');
+                    $scope.$emit("hello", {name: "歪哥", age: 18});
+                };
+                $scope.name = "歪哥";
+
+                
+            }]);
+
+
+
+
+
+
+</script>

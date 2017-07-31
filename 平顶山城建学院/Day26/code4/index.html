@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>$http缓存</title>
+</head>
+<body>
+
+    <div ng-controller="HomeController">
+
+        <button ng-click="requestData()">请求数据</button>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('HomeController', ['$scope', '$cacheFactory', '$http', function ($scope, $cacheFactory, $http) {
+
+                /*
+                *  angular内部帮我们创建好了一个id为$http的缓存服务(可以在angular.js中搜索), 名字为defaultCache
+                *
+                *  第一次进入页面时发送http请求, 如果参数cache为true, angular会自动给defaultCache对象添加一个键值对, 
+                key就是url, value就是请求下来的所有数据
+                *
+                *  第二次进入页面时, 先判断缓存对象中是否有该页面请求过的数据, 如果有就使用, 如果没有就重新想服务器发送请求
+                *
+                *
+                * */
+
+
+
+                var myUrl = "http://c.m.163.com/nc/article/headline/T1348647853363/0-20.html";
+                var url = "http://localhost:3000?myUrl=" + myUrl + '&callback=JSON_CALLBACK';
+
+                $scope.requestData = function () {
+
+                    var myCache = $cacheFactory.get('$http');
+
+                    console.log(myCache.get(url));
+                    if (myCache.get(url)) {
+
+
+
+                        return;
+                    }
+
+                    requestData();
+                };
+
+                function requestData() {
+                    $http({
+                        method: "jsonp",
+                        url: url,
+                        cache: true
+                    }).then(function success(result) {
+
+                        alert("向服务器发送请求");
+
+                        var httpCache = $cacheFactory.get('$http');
+                        console.log(httpCache.get(url));
+
+                    }, function error(e) {
+
+                    });
+                }
+
+
+
+
+
+
+
+            }]);
+
+
+
+
+</script>

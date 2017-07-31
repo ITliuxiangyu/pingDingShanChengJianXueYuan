@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- ng-init: 初始化一个变量, 该变量不用写到$scope中, 一般写在初始化应用时, 也就是写在ng-app后面, 不需要参与逻辑操作 -->
+<html lang="en" ng-app="myApp" ng-init="look='hello'">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+
+	</head>
+	<body>
+		<div ng-controller="firstController">
+			<!-- 
+				ng-model: 双向数据绑定
+				绑定的变量会被作用域添加到观察列表里面, 一旦该变量发生变化, $scope中对应的数据也会发生变化, 接着作用域就会把数据发布出去, 页面上数据也会跟着变化
+			 -->
+			<input type="text" ng-model="mine.age">
+			{{ mine.age }}
+			<br>
+
+			<!-- 
+				如果该作用域中没有该变量, 会自动创建一个, 该变量也会被$scope持有
+			 -->
+			<input type="text" ng-model="mine.name">	
+			{{ mine.name }}
+
+			<input type="text" ng-bind="mine.gender">
+			{{ mine.gender }}
+			<!-- ng-bind是用来显示数据的 -->
+			<div ng-bind="mine.gender"></div>
+
+			<!-- <div ng-init="animal='a'"> -->
+				<!-- ng-init: 初始化一个变量, 该变量不用写到$scope中, 一般写在初始化应用时, 也就是写在ng-app后面, 不需要参与逻辑操作 -->
+				<!-- {{ animal }}
+			</div>
+ -->			
+			{{ look }}
+
+		</div>
+
+		
+	</body>
+</html>
+<script src="angular.js"></script>
+<script>
+	// angular支持链式操作
+	// 第一个参数: 模块的名字
+	// 第二个参数: 依赖列表
+	angular.module('myApp', [])
+		    // 第一个参数: 控制器的名字
+		    // 第二个参数: 回调函数
+		   .controller('firstController', function($scope, $timeout) {
+		   		// 为了保持作用域的干净, 一般不推荐这样使用
+		   		// $scope.age = 19;
+
+		   		// 我们应该这样写
+		   		$scope.mine = {
+		   			age: 19,
+		   			gender: "男"
+		   		};
+		   		console.log($scope.animal);
+
+		   		$timeout(function () {
+		   			alert($scope.animal);
+		   		}, 3000);
+
+		   });
+
+
+</script>

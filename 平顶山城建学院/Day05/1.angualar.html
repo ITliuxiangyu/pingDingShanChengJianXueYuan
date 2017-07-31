@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!-- ng-app指令写在这里, angular在html下生效, 如果写在其它标签下, 那么angular在其它标签下生效, 可以理解为angular生效的范围 -->
+<html lang="en" ng-app>
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+	<body>
+		<input type="text" ng-model="name">
+		<span>{{ name }}</span>
+
+		<input type="text" ng-model="num">
+		<span>{{ num * 3 }}</span>
+		
+	</body>
+</html>
+<script src="angular.js"></script>
+<script>
+	var a = 10;
+	var b = "321";
+	var c = a - b;
+	alert(c);
+
+
+</script>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义缓存对象</title>
+</head>
+<body>
+
+    <div ng-controller="HomeController"></div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('HomeController', ['$scope', '$cacheFactory', '$http', function ($scope, $cacheFactory, $http) {
+
+                var myCache = $cacheFactory('waige');
+                $http({
+                    method: "get",
+                    // 缓存不仅对网络数据有效, 对本地数据也有效(使用缓存的数据更快, 性能更好)
+                    url: "wy.json",
+                    // cache对应的值如果为true, 请求下来的内容会被存放到 defaultCache中, 如果为我们自定义的缓存对象, 那么数据就会存放到自定义缓存对象中
+                    cache: myCache
+                }).then(function success(result) {
+
+                    var httpCache = $cacheFactory.get('waige');
+                    console.log(httpCache.get('wy.json'));
+
+
+                }, function error(e) {
+
+                });
+
+
+
+
+            }]);
+
+
+
+</script>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+
+        <div ng-controller="myController">
+
+            <!--
+                ng-bind-template: 里面的内容可以原样显示, 标签不会被解析
+                在网页中显示标签的时候使用
+            -->
+            <div ng-bind-template="{{ mine.myHtml }}"></div>
+
+
+            <iframe ng-src="{{ mine.outHtml }}" frameborder="2" width="600px" height="600px"></iframe>
+
+            <button ng-click="changeURL()">切换页面</button>
+            <!-- 绑定一个安全的html结构 -->
+            <div ng-bind-html="mine.otherHtml"></div>
+        </div>
+
+
+    </body>
+</html>
+<script src="angular.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('myController', ['$scope', '$sce', function($scope, $sce) {
+
+                $scope.mine = {
+                    myHtml: "<div>2222222222222</div>",
+                    outHtml: "index_01.html",
+                    // 该方法是把html结构认为是安全的
+                    otherHtml: $sce.trustAsHtml("<div>这是div标签中的内容</div>")
+
+                };
+
+                $scope.changeURL = function () {
+
+                    // sce: strict contextual escaping, 严格的上下文隔离, angular认为其它url和html是不安全的, 不能使用, 这个时候我们就需要告诉angular这个网站是安全的
+                    // 信任来源url
+                    $scope.mine.outHtml = $sce.trustAsResourceUrl("https://www.baidu.com");
+
+                };
+
+
+
+            }]);
+
+
+
+</script>

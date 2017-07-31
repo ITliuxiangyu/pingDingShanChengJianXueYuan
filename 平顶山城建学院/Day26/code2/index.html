@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            width: 500px;
+            height: 300px;
+            margin-top: 200px;
+            background: red;
+            text-align: center;
+            line-height: 300px;
+            font-size: 30px;
+        }
+        div:nth-child(odd) {
+            background: yellow;
+        }
+
+    </style>
+</head>
+<body ng-controller="MyController">
+
+    <!--ul>li*5-->
+
+    <!--p+ul>li*5-->
+
+    <!--(p+div)*5-->
+
+    <!--div>p^ul-->
+
+    <!--div{a$}*10-->
+
+    <!--#waige-->
+
+
+    <!--.waige-->
+
+    <!--div[a=b]-->
+
+    <!--div#div${div$}*5-->
+    <div id="div1">div1</div>
+    <div id="div2">div2</div>
+    <div id="div3">div3</div>
+    <div id="div4">div4</div>
+    <div id="div5">div5</div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+
+    angular.module('myApp', [])
+            .controller('MyController', ['$scope', '$location', '$anchorScroll', function ($scope, $location, $anchorScroll) {
+
+
+                // $anchorScroll服务不需要使用, 只需要注入服务就行了
+                // 实现跳转用该方法, 参数为元素的id
+                $location.hash('div3');
+
+            }]);
+
+
+
+
+</script>

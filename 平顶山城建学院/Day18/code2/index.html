@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div ng-controller="SeperateController">
+        <input type="text" ng-model="name">
+
+        <!-- scope为对象的话, 指令自己创建一个隔离作用域, 模板中的元素访问不到其它作用域的内容 -->
+        <div my-seperate>{{ name }}</div>
+
+
+        <div my-input waige="{{ name }}"></div>
+
+    </div>
+
+    <hr>
+
+    <div ng-controller="HelloController">
+
+        <input type="text" ng-model="color">
+
+        <div my-hello color="color" click="go()"></div>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="js/app.js"></script>

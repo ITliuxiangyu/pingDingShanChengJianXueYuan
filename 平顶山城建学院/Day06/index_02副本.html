@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+
+        <div ng-controller="firstController">
+            <div ng-repeat="item in data">
+                <input type="radio" name="{{item.name}}" ng-model="item.yourAnswer" value="0">{{item.data[0]}}
+                <br><input type="radio" name="{{item.name}}" ng-model="item.yourAnswer" value="1">{{item.data[1]}}
+                <br><input type="radio" name="{{item.name}}" ng-model="item.yourAnswer" value="2">{{item.data[2]}}
+                <br><input type="radio" name="{{item.name}}" ng-model="item.yourAnswer" value="3">{{item.data[3]}}
+                <p ng-show="finish && item.doError">正确答案是:{{item.answer}}</p>
+                <hr>
+            </div>
+            <p ng-show="finish">分数:{{score}}</p>
+
+            <button ng-click="submitFn()">提交</button>
+            
+
+
+
+        </div>
+
+
+    </body>
+</html>
+<script src="angular.js"></script>
+<script>
+
+
+    angular.module('myApp', [])
+            .controller('firstController', function($scope, $timeout) {
+                $scope.finish = false;
+                $scope.score = 0;
+
+                $scope.submitFn = function () {
+                    $scope.finish = true;
+                    
+                    for(var i = 0; i < $scope.data.length; i++) {
+
+                        console.log($scope.data[i].answer , $scope.data[i].yourAnswer);
+                        if($scope.data[i].answer != $scope.data[i].yourAnswer) {
+                            
+                            $scope.data[i].doError = true;
+                        } else {
+                            $scope.score += 10;
+                        }
+                    }
+                }
+
+               $scope.data = [
+                   {
+                       name:"first" , 
+                       data:["AAA" , "BBB" , "ccc" , "DDD"] , 
+                       answer:"0" , 
+                       yourAnswer: "" , 
+                       doError:false
+                   } , 
+                   {
+                       name:"second" , 
+                       data:["AAA" , "BBB" , "ccc" , "DDD"] , 
+                       answer:"2", 
+                       yourAnswer: "", 
+                       doError:false
+                   } ,
+                   {
+                       name:"third" , 
+                       data:["AAA" , "BBB" , "ccc" , "DDD"] , 
+                       answer:"3", 
+                       yourAnswer: "", 
+                       doError:false
+                   } ,
+                   {
+                       name:"fourth" , 
+                       data:["AAA" , "BBB" , "ccc" , "DDD"] , 
+                       answer:"1", 
+                       yourAnswer: "", 
+                       doError:false
+                   } ,
+                   {
+                       name:"fifth" , 
+                       data:["AAA" , "BBB" , "ccc" , "DDD"] , 
+                       answer:"2", 
+                       yourAnswer: "", 
+                       doError:false
+                   } ,
+               ];
+
+            });
+
+
+
+</script>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <div ng-controller="myController">
+
+            {{ mine.string | filter : "e" }}
+            <br>
+            {{ mine.array | filter : "小刚" : true}}
+            <br>
+            {{ mine.array2 | filter : "花" }}
+            <br>
+            {{ mine.array | filter : isMatch }}
+
+            <br>
+            {{ mine.array | filter : isHas( mine.array, "小") }}
+
+            <br>
+            <!-- 把json对象转化为json字符串 -->
+            {{ mine.array2 | json }}
+
+            <!-- 字符串变大写 -->
+            <br>
+            {{ mine.string | uppercase }}
+
+            <br>
+            <!-- 字符串变小写 -->
+            {{ mine.stringL | lowercase }}
+
+            <br>
+            {{ mine.stringT }}
+
+            <br>
+            <!--
+                格式化 浮点型 小数, 后面的参数决定保留小数点后几位小数
+             -->
+            {{ mine.num | number : 1 }}
+
+            <br>
+            <!-- limitTo 截取字符, 如果是正直从前往后截取, 如果是负值, 从后往前截取 -->
+            {{ mine.limtStr | limitTo : -7 | limitTo : 4 }}
+
+            <br>
+            <!-- 管道可以添加多个, 顺序执行, 前面管道的输出就是后面管道的输入数据 -->
+            {{ mine.limtStr | uppercase | lowercase | limitTo: 1 | uppercase }}
+
+            <br>
+            <!-- 排序, 第一个参数: 如果为 "+", 升序排列, 如果为 "-", 降序排列 -->
+            {{ mine.numArr | orderBy : "-"}}
+            <br>
+            <!-- 第一个参数可以是函数, 和filter不同的是: filter函数中不满足条件的不会再返回的数组中出现, 这里面函数中不满足条件的数据也会在新的数组中存在, 只不过, 不满足条件的数据在满足条件数据的后面出现 -->
+            <!-- 第二个参数: 是否逆序排列 -->
+            {{ mine.numArr | orderBy : order : true }}
+
+            <!--  -->
+            <br>
+
+            <!-- 可以根据对象的属性进行排序 -->
+            {{ mine.people | orderBy : "age" : true }}
+
+
+
+        </div>
+
+    </body>
+</html>
+<script src="angular.js"></script>
+<script>
+
+    /*
+        内置过滤器 filter 作用: 匹配数组的每一个子元素, 如果子元素和给的参数匹配的话, 就把该子元素放到一个新的数组当中, 并把该新的数组返回给表达式
+        filter: 后面的第一个参数 可以是 字符串, 也可以是函数
+                第二个参数: 如果给true就是严格意义上的匹配, 参数必须和数组中的子元素完全相等时才会把该子元素添加到新的数组中返回
+    */
+
+    angular.module('myApp', [])
+            .controller('myController', function($scope, $filter) {
+
+                $scope.mine = {
+                    string: "aebcdeea",
+                    stringL: "BCD",
+                    stringT: "Abc",
+                    array: ["歪哥", "小明", "小刚", "小强"],
+                    array2: [
+                        { name: "小花", age: 24 },
+                        { name: "小草", age: 22 },
+                        { name: "小月", age: 26 }
+                    ],
+                    num: 123.56789,
+                    limtStr: "abcdeghijklmd",
+                    numArr: [5, 8, 6, 3, 4, 7, 9],
+                    people: [
+                        { name: "小刚", age: 20, gender: "男" },
+                        { name: "小涛", age: 22, gender: "男"},
+                        { name: "小玉", age: 18, gender: "女" },
+                        { name: "小鸟", age: 19, gender: "男" }
+                    ]
+                };
+
+                // 也可以通过这种方式调用内置过滤器
+                $scope.stringT =  $filter("uppercase")($scope.mine.stringT);
+
+                $scope.isMatch = function (obj, index) {
+//                    console.log(obj, index);
+                    if (obj.indexOf("歪") == -1) {
+                        return true;
+                    }
+                };
+
+                $scope.isHas = function (obj, str) {
+                    console.log(obj, str);
+                    angular.forEach(obj, function(data, index) {
+                        console.log(data);
+                        if (data.indexOf(str) == -1) {
+                            obj.splice(index, 1);
+                        }
+
+                    });
+                };
+
+                $scope.order = function (arg) {
+                    console.log(arg);
+                    if (arg > 7) {
+                        return arg;
+                    }
+                };
+            });
+
+
+
+</script>

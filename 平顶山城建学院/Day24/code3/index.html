@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .test {
+            height: 200px;
+            background-color: red;
+        }
+
+        .test.ng-enter {
+            height: 0;
+            opacity: 0;
+            background-color: yellow;
+            transition: 2s linear;
+        }
+        .test.ng-enter-active {
+            height: 200px;
+            opacity: 1;
+            background-color: red;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div ng-controller="MyController">
+
+        <div ng-include="myHtml" id="demo"></div>
+
+        <button ng-click="changeMyHtml()">点击</button>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+    angular.module('myApp', ['ngAnimate'])
+            .controller('MyController', ['$scope', function ($scope) {
+
+                $scope.myHtml = "";
+
+                $scope.changeMyHtml = function () {
+                    $scope.myHtml = "test.html";
+                };
+
+                // 当我们改变ng-include指令的值的时候, ng-include指令作用域就会通过$emint服务向上传播事件
+
+                // $includeContentRequested: 应用内容请求成功时触发, 但是此刻还没有加载
+                // $includeContentLoaded: 请求的内容加载完成后传播
+
+
+                $scope.$on('$includeContentLoaded', function (event, msg) {
+                    console.log(msg);
+
+                   var demo = document.getElementById('demo');
+                   demo.className = "test";
+
+                });
+
+
+                $scope.$on('$includeContentRequested', function (event, msg) {
+                    console.log("1111111" + msg);
+
+
+                    // 在这里面会报错, demo为空, 因为这里只是请求成功, 应用的模板还没加载成功
+                //    var demo = document.getElementById('demo');
+                //    demo.className = "test";
+
+                })
+
+
+            }]);
+
+
+
+
+
+</script>

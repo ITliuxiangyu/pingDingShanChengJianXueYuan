@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div ng-controller="RootController">
+
+        <div ng-controller="ParentController">
+
+            <div ng-controller="ChildController">
+
+                <button ng-click="emit()">传播</button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+
+    angular.module('myApp', [])
+            .controller('RootController', ['$scope', function ($scope) {
+                
+                $scope.$on('hello', function (event, msg) {
+
+                    console.log("Root 收到了消息: ~~~~" + msg);
+
+                });
+
+
+                
+            }])
+            .controller('ParentController', ['$scope', function ($scope) {
+
+                $scope.$on('hello', function (event, msg) {
+
+                    console.log("Parent 收到 了消息: ~~~~" + msg);
+                    // 阻止事件继续向上传播
+                    // 如果向上传播没有任何意义, 我们就阻止事件继续传播, 一来防止污染全局作用域, 而来可以提高应用的效率
+                    event.stopPropagation();
+                    
+                });
+
+            }])
+            .controller('ChildController', ['$scope', function ($scope) {
+
+                $scope.emit = function () {
+                    $scope.$emit('hello', "world");
+                };
+                
+            }]);
+
+
+
+
+
+
+</script>

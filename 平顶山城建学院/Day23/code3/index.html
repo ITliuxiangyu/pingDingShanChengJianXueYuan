@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>兄弟控制器之间的通讯</title>
+</head>
+<body>
+
+    <div ng-controller="ParentController">
+
+        <div ng-controller="FirstController">
+
+            <button ng-click="emit()">传播</button>
+        </div>
+
+        <div ng-controller="SecondController">
+
+
+        </div>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+
+    /*
+    *  兄弟控制器之间的通信
+    * 1. 兄控制器向上传播事件
+    * 2. 父控制器监听到事件以后, 向下传播数据
+    * 3. 弟控制器监听父控制器向下传播的事件
+    *
+    * */
+
+    angular.module('myApp', [])
+            .controller('ParentController', ['$scope', function ($scope) {
+
+                $scope.$on('up', function (event, msg) {
+
+                    $scope.$broadcast("down", msg);
+                    event.stopPropagation();
+
+                });
+                
+            }])
+            .controller('FirstController', ['$scope', function ($scope) {
+
+                $scope.emit = function () {
+                    $scope.$emit("up", { name: "歪哥" });
+                };
+                
+            }])
+            .controller('SecondController', ['$scope', function ($scope) {
+
+                $scope.$on('down', function (event, msg) {
+
+                    alert(msg.name);
+                });
+
+
+                
+            }]);
+
+
+
+
+
+</script>

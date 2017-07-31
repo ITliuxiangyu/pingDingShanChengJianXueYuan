@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,
+minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>Title</title>
+    <link rel="stylesheet" href="../lib/css/ionic.css">
+    <style>
+        a.item:after {
+            position: absolute;
+            top: 50%;
+            right: 11px;
+            display: block;
+            margin-top: -8px;
+            color: #ccc;
+            content: "\f125";
+            font-family: 'Ionicons';
+            line-height: 1;
+        }
+        .col {
+            background: yellow;
+        }
+
+        .col:nth-child(even) {
+            background: green;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="bar bar-header bar-stable">
+    <h1 class="title">bar-stable</h1>
+</div>
+
+<div class="bar bar-header bar-positive">
+    <h1 class="title">bar-positive</h1>
+</div>
+
+<div class="bar bar-header">
+    <h1 class="title">Header</h1>
+</div>
+<div class="bar bar-subheader">
+    <h2 class="title">Sub Header</h2>
+</div>
+
+<div class="bar bar-footer bar-balanced">
+    <div class="title">Footer</div>
+</div>
+
+
+<div class="bar bar-footer">
+    <button class="button button-clear">Left</button>
+    <div class="title">Title</div>
+    <button class="button button-clear">Right</button>
+</div>
+
+<div class="bar bar-footer">
+    <button class="button pull-left">Right</button>
+</div>
+
+<button class="button">
+    Default
+</button>
+
+<button class="button button-light">
+    button-light
+</button>
+
+<button class="button button-stable">
+    button-stable
+</button>
+
+<button class="button button-positive">
+    button-positive
+</button>
+
+<!--<button class="button button-calm">-->
+    <!--button-calm-->
+<!--</button>-->
+
+<!--<button class="button button-balanced">-->
+    <!--button-balanced-->
+<!--</button>-->
+
+<!--<button class="button button-energized">-->
+    <!--button-energized-->
+<!--</button>-->
+
+<!--<button class="button button-assertive">-->
+    <!--button-assertive-->
+<!--</button>-->
+
+<!--<button class="button button-royal">-->
+    <!--button-royal-->
+<!--</button>-->
+
+<!--<button class="button button-dark">-->
+    <!--button-dark-->
+<!--</button>-->
+
+<!--<button class="button button-block button-positive">-->
+    <!--Block Button-->
+<!--</button>-->
+<!--<button class="button button-block button-positive">-->
+    <!--Block Button-->
+<!--</button>-->
+<!--<button class="button button-block button-positive">-->
+    <!--Block Button-->
+<!--</button>-->
+
+<!--<button class="button button-small button-assertive">-->
+    <!--Small Button-->
+<!--</button>-->
+<!--<button class="button button-large button-positive">-->
+    <!--Large Button-->
+<!--</button>-->
+
+<!--<button class="button">-->
+    <!--<i class="icon ion-loading-c"></i> Loading...-->
+<!--</button>-->
+
+<!--<button class="button icon-left ion-home">Home</button>-->
+
+<!--<button class="button icon-left ion-star button-positive">Favorites</button>-->
+
+<!--<a class="button icon-right ion-chevron-right button-calm">Learn More</a>-->
+
+<!--<a class="button icon-left ion-chevron-left button-clear button-dark">Back</a>-->
+
+<!--<button class="button icon ion-gear-a"></button>-->
+
+<!--<a class="button button-icon icon ion-settings"></a>-->
+
+<!--<a class="button button-outline icon-right ion-ios-game-controller-b-outline button-balanced">Reorder</a>-->
+
+<!--<div class="bar bar-header">-->
+    <!--<button class="button button-icon icon ion-navicon"></button>-->
+    <!--<div class="h1 title">Header Buttons</div>-->
+    <!--<button class="button button-clear button-positive">Edit</button>-->
+<!--</div>-->
+
+<!--<div class="bar bar-header">-->
+    <!--<button class="button button-icon icon ion-navicon"></button>-->
+    <!--<div class="h1 title">Header Buttons</div>-->
+    <!--<button class="button button-clear button-positive">Edit</button>-->
+<!--</div>-->
+
+
+<!--<div class="button-bar">-->
+    <!--<a class="button">First</a>-->
+    <!--<a class="button">Second</a>-->
+    <!--<a class="button">Third</a>-->
+<!--</div>-->
+
+
+<!--<ul class="list">-->
+    <!--<li class="item">-->
+        <!--歪哥-->
+    <!--</li>-->
+    <!--<li class="item">-->
+        <!--歪哥-->
+    <!--</li>-->
+    <!--<li class="item">-->
+        <!--歪哥-->
+    <!--</li>-->
+    <!--<li class="item">-->
+        <!--歪哥-->
+    <!--</li>-->
+<!--</ul>-->
+
+
+<!--<div class="list ionic">-->
+
+    <!--<a class="ionic item item-icon-left" href="#">-->
+        <!--<i class="icon ion-email"></i>-->
+        <!--Check mail-->
+    <!--</a>-->
+
+    <!--<a class="item item-icon-left item-icon-right" href="#">-->
+        <!--<i class="icon ion-chatbubble-working"></i>-->
+        <!--Call Ma-->
+        <!--<i class="icon ion-ios-telephone-outline"></i>-->
+    <!--</a>-->
+
+    <!--<a class="item item-icon-left" href="#">-->
+        <!--<i class="icon ion-mic-a"></i>-->
+        <!--Record album-->
+    <!--<span class="item-note">-->
+      <!--Grammy-->
+    <!--</span>-->
+    <!--</a>-->
+
+    <!--<a class="item item-icon-left" href="#">-->
+        <!--<i class="icon ion-person-stalker"></i>-->
+        <!--Friends-->
+        <!--<span class="badge badge-assertive">0</span>-->
+    <!--</a>-->
+
+<!--</div>-->
+
+
+<!--<div class="list">-->
+
+    <!--<div class="item item-button-right">-->
+        <!--Call Ma-->
+        <!--<button class="button button-positive">-->
+            <!--<i class="icon ion-ios-telephone"></i>-->
+        <!--</button>-->
+    <!--</div>-->
+
+    <!--...-->
+
+<!--</div>-->
+
+<!--<div class="list">-->
+
+    <!--<a class="item item-avatar" href="#">-->
+        <!--<img src="venkman.jpg">-->
+        <!--<h2>Venkman</h2>-->
+        <!--<p>Back off, man. I'm a scientist.</p>-->
+    <!--</a>-->
+
+    <!--...-->
+
+<!--</div>-->
+
+<!--<div class="list card">-->
+
+    <!--<div class="item item-avatar">-->
+        <!--<img src="avatar.jpg">-->
+        <!--<h2>Pretty Hate Machine</h2>-->
+        <!--<p>Nine Inch Nails</p>-->
+    <!--</div>-->
+
+    <!--<div class="item item-image">-->
+        <!--<img src="meinv.jpg" style="width: 50%">-->
+    <!--</div>-->
+
+    <!--<a class="item item-icon-left assertive" href="#">-->
+        <!--<i class="icon ion-music-note"></i>-->
+        <!--Start listening-->
+    <!--</a>-->
+
+<!--</div>-->
+
+
+<!--<div class="list">-->
+    <!--<label class="item item-input">-->
+        <!--<input type="text" placeholder="First Name">-->
+    <!--</label>-->
+    <!--<label class="item item-input">-->
+        <!--<input type="text" placeholder="Last Name">-->
+    <!--</label>-->
+    <!--<label class="item item-input">-->
+        <!--<textarea placeholder="Comments"></textarea>-->
+    <!--</label>-->
+<!--</div>-->
+
+
+<!--<div class="list">-->
+    <!--<label class="item item-input">-->
+        <!--<span class="input-label">Username</span>-->
+        <!--<input type="text">-->
+    <!--</label>-->
+    <!--<label class="item item-input">-->
+        <!--<span class="input-label">Password</span>-->
+        <!--<input type="password">-->
+    <!--</label>-->
+<!--</div>-->
+
+
+<!--<div class="list">-->
+    <!--<label class="item item-input">-->
+        <!--<span class="input-label">Username</span>-->
+        <!--<input type="text">-->
+    <!--</label>-->
+    <!--<label class="item item-input">-->
+        <!--<span class="input-label">Password</span>-->
+        <!--<input type="password">-->
+    <!--</label>-->
+<!--</div>-->
+
+<!--<div class="list list-inset">-->
+    <!--<label class="item item-input">-->
+        <!--<input type="text" placeholder="First Name">-->
+    <!--</label>-->
+    <!--<label class="item item-input">-->
+        <!--<input type="text" placeholder="Last Name">-->
+    <!--</label>-->
+<!--</div>-->
+
+<!--<div class="list">-->
+
+    <!--<div class="item item-input-inset">-->
+        <!--<label class="item-input-wrapper">-->
+            <!--<input type="text" placeholder="Email">-->
+        <!--</label>-->
+        <!--<button class="button button-small">-->
+            <!--Submit-->
+        <!--</button>-->
+    <!--</div>-->
+
+<!--</div>-->
+
+<!--<div class="list list-inset">-->
+    <!--<label class="item item-input">-->
+        <!--<i class="icon ion-search placeholder-icon"></i>-->
+        <!--<input type="text" placeholder="Search">-->
+    <!--</label>-->
+<!--</div>-->
+
+<!--<div class="bar bar-header item-input-inset">-->
+    <!--<label class="item-input-wrapper">-->
+        <!--<i class="icon ion-ios-search placeholder-icon"></i>-->
+        <!--<input type="search" placeholder="Search">-->
+    <!--</label>-->
+    <!--<button class="button button-clear">-->
+        <!--Cancel-->
+    <!--</button>-->
+<!--</div>-->
+<!--<label class="toggle">-->
+    <!--<input type="checkbox">-->
+    <!--<div class="track">-->
+        <!--<div class="handle"></div>-->
+    <!--</div>-->
+<!--</label>-->
+
+<!--<ul class="list">-->
+
+    <!--<li class="item item-toggle">-->
+        <!--HTML5-->
+        <!--<label class="toggle toggle-assertive">-->
+            <!--<input type="checkbox">-->
+            <!--<div class="track">-->
+                <!--<div class="handle"></div>-->
+            <!--</div>-->
+        <!--</label>-->
+    <!--</li>-->
+
+    <!--...-->
+
+<!--</ul>-->
+
+<!--<ul class="list">-->
+
+    <!--<li class="item item-toggle">-->
+        <!--HTML5-->
+        <!--<label class="toggle toggle-assertive">-->
+            <!--<input type="checkbox">-->
+            <!--<div class="track">-->
+                <!--<div class="handle"></div>-->
+            <!--</div>-->
+        <!--</label>-->
+    <!--</li>-->
+
+    <!--...-->
+
+<!--</ul>-->
+
+<!--<ion-list>-->
+    <!--<ion-radio ng-model="choice" ng-value="'A'">Choose A</ion-radio>-->
+    <!--<ion-radio ng-model="choice" ng-value="'B'">Choose B</ion-radio>-->
+<!--</ion-list>-->
+
+<!--<div class="item range">-->
+    <!--<i class="icon ion-volume-low"></i>-->
+    <!--<input type="range" name="volume">-->
+    <!--<i class="icon ion-volume-high"></i>-->
+<!--</div>-->
+
+<!--<div class="list">-->
+    <!--<div class="item range range-positive">-->
+        <!--<i class="icon ion-ios-sunny-outline"></i>-->
+        <!--<input type="range" name="volume" min="0" max="100" value="33">-->
+        <!--<i class="icon ion-ios-sunny"></i>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="list">-->
+
+    <!--&lt;!&ndash;<label class="item item-input item-select">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="input-label">&ndash;&gt;-->
+            <!--&lt;!&ndash;Lightsaber&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<select>&ndash;&gt;-->
+            <!--&lt;!&ndash;<option>Blue</option>&ndash;&gt;-->
+            <!--&lt;!&ndash;<option selected>Green</option>&ndash;&gt;-->
+            <!--&lt;!&ndash;<option>Red</option>&ndash;&gt;-->
+        <!--&lt;!&ndash;</select>&ndash;&gt;-->
+    <!--&lt;!&ndash;</label>&ndash;&gt;-->
+
+    <!--<div class="tabs">-->
+        <!--<a class="tab-item">-->
+            <!--主页-->
+        <!--</a>-->
+        <!--<a class="tab-item">-->
+            <!--收藏-->
+        <!--</a>-->
+        <!--<a class="tab-item">-->
+            <!--设置-->
+        <!--</a>-->
+    <!--</div>-->
+
+
+
+
+
+<!--</div>-->
+
+<!--<div class="bar bar-footer bar-balanced">-->
+    <!--<div class="tabs tabs-icon-only">-->
+        <!--<a class="tab-item">-->
+            <!--<i class="icon ion-home"></i>-->
+        <!--</a>-->
+        <!--<a class="tab-item">-->
+            <!--<i class="icon ion-star"></i>-->
+        <!--</a>-->
+        <!--<a class="tab-item">-->
+            <!--<i class="icon ion-gear-a"></i>-->
+        <!--</a>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="tabs tabs-icon-top">-->
+    <!--<a class="tab-item">-->
+        <!--<i class="icon ion-home"></i>-->
+        <!--Home-->
+    <!--</a>-->
+    <!--<a class="tab-item">-->
+        <!--<i class="icon ion-star"></i>-->
+        <!--Favorites-->
+    <!--</a>-->
+    <!--<a class="tab-item">-->
+        <!--<i class="icon ion-gear-a"></i>-->
+        <!--Settings-->
+    <!--</a>-->
+<!--</div>-->
+
+
+<!--<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">-->
+    <!--<div class="tabs">-->
+        <!--<a class="tab-item active" href="#">-->
+            <!--<i class="icon ion-home"></i>-->
+            <!--Test-->
+        <!--</a>-->
+        <!--<a class="tab-item" href="#">-->
+            <!--<i class="icon ion-star"></i>-->
+            <!--Favorites-->
+        <!--</a>-->
+        <!--<a class="tab-item" href="#">-->
+            <!--<i class="icon ion-gear-a"></i>-->
+            <!--Settings-->
+        <!--</a>-->
+    <!--</div>-->
+<!--</div>-->
+<!--<div class="tabs-striped tabs-color-assertive">-->
+    <!--<div class="tabs">-->
+        <!--<a class="tab-item active" href="#">-->
+            <!--<i class="icon ion-home"></i>-->
+            <!--Test-->
+        <!--</a>-->
+        <!--<a class="tab-item" href="#">-->
+            <!--<i class="icon ion-star"></i>-->
+            <!--Favorites-->
+        <!--</a>-->
+        <!--<a class="tab-item" href="#">-->
+            <!--<i class="icon ion-gear-a"></i>-->
+            <!--Settings-->
+        <!--</a>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="row">-->
+    <!--<div class="col">.col</div>-->
+    <!--<div class="col">.col</div>-->
+    <!--<div class="col">.col</div>-->
+
+<!--</div>-->
+
+
+<!--<div class="row">-->
+    <!--<div class="col col-50">.col.col-50</div>-->
+    <!--<div class="col">.col</div>-->
+    <!--<div class="col">.col</div>-->
+<!--</div>-->
+
+<!--<div class="row">-->
+    <!--<div class="col col-75">.col.col-75</div>-->
+    <!--<div class="col">.col</div>-->
+<!--</div>-->
+
+<!--<div class="row">-->
+    <!--<div class="col">.col</div>-->
+    <!--<div class="col col-33">.col.col-75</div>-->
+<!--</div>-->
+
+<!--<div class="row">-->
+    <!--<div class="col">.col</div>-->
+    <!--<div class="col">.col</div>-->
+<!--</div>-->
+
+<!--<div class="row">-->
+    <!--<div class="col col-33 col-offset-33">.col</div>-->
+    <!--<div class="col">.col</div>-->
+<!--</div>-->
+
+<!--<div class="row">-->
+    <!--<div class="col col-33">.col</div>-->
+    <!--<div class="col col-33 col-offset-33">.col</div>-->
+<!--</div>-->
+
+<!--<div class="row">-->
+    <!--<div class="col col-33 col-offset-67">.col</div>-->
+<!--</div>-->
+
+
+<div class="row responsive-sm responsive-md responsive-lg">
+    <div class="col">.col</div>
+    <div class="col">.col</div>
+    <div class="col">.col</div>
+    <div class="col">.col</div>
+</div>
+
+
+
+</body>
+</html>
+<script src="../lib/ionic.bundle.js"></script>
+<script>
+    angular.module('myApp', ['ionic'])
+            .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+
+            }]);
+
+
+
+
+</script>

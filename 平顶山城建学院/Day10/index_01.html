@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <div ng-controller="myController">
+             <!--ng-repeat-start指令要和ng-repeat-end指令同时出现, 用来确定重复的范围-->
+            <button ng-repeat-start="num in mine.numArr">{{ num }}</button>
+            <!--<div>歪哥</div>-->
+            <div ng-repeat-end>真帅啊</div>
+            <div>歪哥</div>
+
+
+
+
+        </div>
+
+    </body>
+</html>
+<script src="angular.js"></script>
+<script>
+    angular.module('myApp', [])
+        .controller('myController', ['$scope', function($scope) {
+            $scope.mine = {
+                numArr : [0, 1, 2, 3, 4, 5, 6, 7]
+            };
+
+        }]);
+
+
+
+
+</script>

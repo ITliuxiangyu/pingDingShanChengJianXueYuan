@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div ng-controller="RootController">
+
+        <button ng-click="broadcast()">传播</button>
+
+        <div ng-controller="ParentController">
+
+            <div ng-controller="ChildController">
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+
+    angular.module('myApp', [])
+            .controller('RootController', ['$scope', function ($scope) {
+
+                $scope.broadcast = function () {
+
+                    $scope.$broadcast("hello", "world");
+
+                };
+                
+                
+            }])
+            .controller('ParentController', ['$scope', function ($scope) {
+
+                $scope.$on('hello', function (event, msg) {
+
+                    console.log("Parent 收到消息: " + msg);
+                    console.log(event);
+
+                    // 该方法不能阻止事件的传播, 但是如果调用了该函数, 子作用域中的属性defaultPreventd值就会被标记为true
+                    event.preventDefault();
+
+                });
+                
+            }])
+            .controller('ChildController', ['$scope', function ($scope) {
+
+                $scope.$on('hello', function (event, msg) {
+
+                    console.log(event.defaultPrevented);
+
+                    if (event.defaultPrevented) {
+                        console.log("安全忽略 $broadcast 事件的传递 ");
+                    } else {
+                        console.log("Child 收到消息: " + msg);
+
+                    }
+
+
+                });
+                
+            }]);
+
+
+
+
+</script>

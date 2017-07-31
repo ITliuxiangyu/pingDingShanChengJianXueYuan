@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        .fade {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+
+        .fade.ng-enter {
+            transition: 2s linear;
+            height: 0px;
+        }
+
+        .fade.ng-enter-active {
+            height: 200px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <div ng-controller="MyController">
+
+        <div id="myDiv" class="fade"></div>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+    angular.module('myApp', ['ngAnimate'])
+            .controller('MyController', ['$scope', '$animate', function ($scope, $animate) {
+
+                // 这种操作使用原生js操作DOM的方法也是可以用$animate服务来添加动画, 但是不建议这样使用, 我们一般在自定义指令中使用$aniamte服务, 这样效率更高
+
+                var myDiv = document.getElementById('myDiv');
+
+                myDiv.addEventListener('click', function () {
+
+                    $scope.$apply(function () {
+
+//                        $animate.enter()
+
+                        $animate.enter(myDiv, myDiv.parentElement);
+
+                    });
+
+                });
+
+
+
+            }]);
+
+
+
+
+
+</script>

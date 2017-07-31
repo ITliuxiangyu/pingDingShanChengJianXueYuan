@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>缓存对象的一些方法</title>
+</head>
+<body ng-controller="MyController">
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+
+    angular.module('myApp', [])
+            .controller('MyController', ['$scope', '$cacheFactory', function ($scope, $cacheFactory) {
+
+                var cache = $cacheFactory('waige', {capacity: 20});
+
+                // 通过put()方法添加键值对
+                cache.put("hello", "world");
+
+                console.log(cache.info());
+
+                // 通过get()方法获取缓存中key对应的值
+                console.log(cache.get('hello'));
+
+                var arr = [
+                    { name: "歪哥", age: 18},
+                    { name: "小小", age: 22},
+                    { name: "小黑", age: 19}
+                ];
+                cache.put("homePage", arr);
+
+                console.log(cache.get('homePage'));
+                console.log(cache.info());
+
+                // 通过key值清除缓存对象的键值对
+//                cache.remove('hello');
+
+                // 用于重置缓存, 同时移除所有已经缓存的值
+                cache.removeAll();
+                console.log(cache.info());
+                console.log(cache.get('hello'));
+
+                // 从$cacheFactory缓存注册表中移除指定缓存的所有引用
+                cache.destroy();
+                console.log(cache.info());
+
+
+
+            }]);
+
+
+</script>

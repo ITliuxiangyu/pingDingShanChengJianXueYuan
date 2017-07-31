@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>缓存</title>
+</head>
+<body ng-controller="MyController">
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+    /*
+    * $cacheFactory服务, 即angular中的缓存服务,
+     为我们提供一些数据缓存的功能, 不仅能当做 随 app 存在的一个数据库, 
+     而且在app内部帮助我们建立了一些内置的缓存来帮助我们提升性能, angular中的所有缓存都是$cacheFactory提供的
+    *
+    *
+    * 优点: 节约流量, 提升界面性能, 提高用户体验
+    *
+    * 缺点: 不能过度依赖缓存, 需要作出抉择, 防止错过最新数据, 所以我们应该选择性的去使用缓存
+    *
+    * */
+    angular.module('myApp', [])
+            .controller('MyController', ['$scope', '$cacheFactory', function ($scope, $cacheFactory) {
+
+                // 创建一个$cacheFactory对象
+                // 参数: 缓存的名字
+//                var cache = $cacheFactory('cacheId');
+                // $cacheFactory接收两个参数
+                // 第一个参数: 缓存的名字
+                // 第二个参数: 容量, capacity的值代表缓存能够存储的最大键值对数量
+                var cache = $cacheFactory('waige', { capacity: 20 });
+
+
+                // 我们可以通过缓存的名字获取创建的缓存对象
+                var myCache = $cacheFactory.get('waige');
+
+
+            }]);
+
+
+
+</script>

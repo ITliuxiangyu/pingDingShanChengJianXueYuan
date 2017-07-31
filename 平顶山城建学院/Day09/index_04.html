@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<style>
+			.red {
+				height: 50px;
+				background: red;
+			}
+			.green {
+				height: 50px;
+				background: green;
+			}
+		</style>
+	</head>
+	<body>
+		<div ng-controller="myController">
+			
+			<!-- ng-repeat指令创建一个独立的作用域, 里面有几个参数
+				$index: 元素的下标
+				$first: 第一个为true, 其他都是false
+				$last: 最后一个为true, 其它都是false
+				$middle: 第一个和最后一个为false, 其它为true
+				$even: 偶数个为true, 奇数个为false
+				$odd: 和$even相反
+			 -->
+			<button ng-repeat="num in mine.numArr" ng-click="changeVal($odd)">{{ num }}</button>
+
+			<div ng-repeat="num in mine.numArr" ng-class="{ red: $even, green: $odd }"></div>
+
+
+		</div>
+		
+	</body>
+</html>
+<script src="angular.js"></script>
+<script>
+	angular.module('myApp', [])
+		.controller('myController', ['$scope', function($scope) {
+			$scope.mine = {
+				numArr: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+			};
+			$scope.changeVal = function(index) {
+				alert("点击的第" + index + "个");
+			};
+
+
+		}]);
+
+
+</script>

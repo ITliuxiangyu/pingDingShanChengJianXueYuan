@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+
+        <style>
+
+            .move {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+            }
+
+            /*
+              关键帧动画不用写 .move.ng-enter-active类
+            */
+            .move.ng-enter {
+                /*width: 100px;*/
+                /*height: 100px;*/
+                /*background-color: red;*/
+
+                /*
+                    即使这里面animation-fill-mode的值为forwards也不会保留最后一帧动画效果, 因为这个类在动画执行完成以后会被$animate服务删除掉
+                    为了提高用户体验, 一般 100%的值和初始值一样(.move样式里面的值)
+                */
+                animation: move 2s linear 0s 1 forwards;
+
+            }
+
+
+
+            @keyframes move {
+
+                from {
+
+                    transform: translateX(0px);
+
+                }
+                20%, 40%, 60%, 80% {
+                    /*width: 100px;*/
+                    /*height: 100px;*/
+                    /*background-color: red;*/
+                    transform: translateX(100px);
+                }
+                30%, 50%, 70%, 90% {
+                    transform: translateX(50px);
+                }
+                100% {
+
+                    transform: translateX(0px);
+                }
+                
+            }
+
+
+
+
+
+        </style>
+
+    </head>
+    <body>
+
+
+        <div ng-controller="MyController">
+            <div ng-if="isShowDiv" class="move"></div>
+            <button ng-click="isShowDiv = !isShowDiv">点击</button>
+        </div>
+
+
+    
+
+    </body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+    
+    angular.module('myApp', ['ngAnimate'])
+            .controller('MyController', ['$scope', function ($scope) {
+                
+            }]);
+
+
+
+
+
+</script>

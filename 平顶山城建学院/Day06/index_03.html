@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+	<body>
+		<div ng-controller="firstController">
+			<input type="text" ng-model="mine.money">
+			<br>
+
+			<input type="text" id="val">
+			<button ng-click="mine.show()">点我</button>
+
+			<p> {{ mine.showMessage }}</p>
+			
+		</div>
+		
+	</body>
+</html>
+<script src="angular.js"></script>
+<script>
+	var app = angular.module('myApp', []);
+	app.controller("firstController", function($scope) {
+		$scope.mine = {
+			name: "歪哥",
+			age: 18,
+			money: 10000,
+			showMessage: ""
+		};
+
+		// $scope.$watch('mine.money', function(newVal, oldVal, scope) {
+		// 	console.log(newVal, oldVal);
+		// });
+
+
+		//  watch: 观察, 监视
+		//  第一个参数: 要观察的对象
+		//  第二个参数: 回调函数, 一旦被检测的对象的值发生变化, 该函数就会被调用, 函数中 第一个参数是新值(变化之后的值), 第二个参数旧值(变化之前的值), 第三个参数: 该作用域本身
+		$scope.$watch("mine.money", function(newVal, oldVal, scope) {
+			if (newVal > 100000) {
+				$scope.mine.showMessage = "歪哥真有钱";
+			} else {
+				$scope.mine.showMessage = "歪哥是一个有内涵的人";
+			}
+			console.log(scope.mine.name);
+		});
+
+		$scope.mine.show = function() {
+			$scope.mine.money = document.querySelector('#val').value;
+		};
+
+
+
+
+
+
+	});
+
+
+
+</script>

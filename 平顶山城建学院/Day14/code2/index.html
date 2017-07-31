@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+	<body>
+		<div ng-controller="myController">
+
+			<select name="" id="a" ng-model="mine.template" ng-options="template.url for template in mine.templates">
+				
+				<option value="">(blank)</option>
+
+			</select>
+
+			这是模板 {{ mine.template.url }}
+
+			<!-- ng-include以属性的形式写 -->
+			<div ng-include="mine.template.url" onload="mine.doSth()"></div>
+
+			<!-- 以元素的形式写 -->
+			<!--<ng-include src="mine.template.url"></ng-include>-->
+
+			<!-- 以类名的形式写 -->
+			<!--<div class="ng-include: mine.template.url"></div>-->
+
+		</div>
+	</body>
+</html>
+<script src='../lib/angular.js'></script>
+
+<!-- 另一种模板的形式 -->
+<script type="text/ng-template" id="other.html">
+	<h2>我是另一种形式的模板</h2>
+
+</script>
+<script src='js/app.js'></script>

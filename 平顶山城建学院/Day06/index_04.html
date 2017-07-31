@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="phoneApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<style>
+			#view {
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				left: 300px;
+				top: 200px;
+				border-radius: 20%;
+				background-color: red;
+				transition: 0.5s;
+			}
+		</style>
+	</head>
+	<body>
+		<div ng-controller="firstController">
+			<div id="view"></div>
+			<!-- angular中通过ng-事件名称的形式给元素绑定事件 -->
+			<button ng-click="mine.click()">单击</button>
+			<button ng-dblclick="mine.dblClick()">双击</button>
+			
+			<!-- 注意: ng-model要和ng-change 同时出现, 否则会报错 -->
+			<input type="text" ng-model="mine.num" ng-change="mine.changeValue()">
+			<p>{{ mine.num }} {{ mine.name }}</p>
+
+		</div>
+	</body>
+</html>
+<script src="angular.js"></script>
+<script>
+	var viewDiv = document.querySelector('#view');
+	var app = angular.module('phoneApp', []);
+	app.controller('firstController', function($scope) {
+		$scope.mine = {
+			num: 0,
+			click: oneClick,
+			dblClick: twoClick,
+			changeValue: changeValue
+		};
+
+		function oneClick() {
+			viewDiv.style.transform = "scale(2)";
+		}
+
+		function twoClick() {
+			viewDiv.style.transform = "rotate(" + Math.floor(Math.random() * 361) + "deg)";
+		}
+
+		function changeValue() {
+			$scope.mine.name = "666";
+		}
+
+	});
+
+
+</script>

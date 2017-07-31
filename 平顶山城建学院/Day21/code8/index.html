@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .hideOrShow {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+
+        .hideOrShow.ng-hide-add {
+            transition: 2s linear;
+            transform: rotate(0deg);
+        }
+
+        .hideOrShow.ng-hide-add-active {
+            transform: rotate(360deg);
+        }
+
+        .hideOrShow.ng-hide-remove {
+            animation: scroll 2s linear;
+        }
+
+        @keyframes scroll {
+            from {
+                transform: translateX(0px) rotate(0deg);
+            }
+            to {
+                transform: translateX(2000px) rotate(5000deg)
+            }
+        }
+
+        .hideOrShow.ng-hide-remove-active {
+
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <!--
+        ng-hide: $animate给DOM元素添加的类为 ng-hide-add, ng-hide-add-active, ng-hide-remove, ng-hide-remove-active
+        ng-show: 和 ng-hide相反
+
+    -->
+    <div ng-controller="MyController">
+
+
+        <div ng-hide="hideVal" class="hideOrShow">hello</div>
+        <!--<div ng-show="hideVal" class="hideOrShow">hello</div>-->
+
+        <button ng-click="hideVal = !hideVal">显示/隐藏</button>
+
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+    
+    angular.module('myApp', ['ngAnimate'])
+            .controller('MyController', ['$scope', function ($scope) {
+
+                $scope.hideVal = false;
+                
+            }]);
+    
+    
+    
+</script>

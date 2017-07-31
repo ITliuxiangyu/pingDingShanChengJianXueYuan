@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+
+        <div ng-controller="myController">
+
+            {{ mine.name }}
+
+            <button ng-click="changeVal()">Click Here</button>
+
+        </div>
+
+        <div ng-controller="secondController">
+
+            {{ mine.name }}
+
+            <button ng-click="changeVal()">点击这里</button>
+
+        </div>
+
+    </body>
+</html>
+<script src="angular.js"></script>
+<script>
+
+    // 单例设计模式, 整个应用中只会初始化一次, 一旦初始化就不会再被创建, 整个应用中使用的都是该单例, 单例一经创建, 寿命周期就和应用一样, 单例设计模式的设计目的: 达到资源共享的目的, 也就是说当多个模块使用到一个单例的时候, 他们使用的数据是一样的, 一个地方修改, 其它地方也会修改
+
+    angular.module('myApp', [])
+//            .value('name', 'value')
+    // value 里面有两个参数, 第一个参数是自定义服务的名字, 第二个参数可以是 字符串, 数字, 对象, 函数, 一样我们使用value创建的服务, 如果在整个应用中想使用一个不能修改的常量的时候, 后面跟 字符串或数字, value 一般使用的方式就是存储一些数据
+            .value('name', { value: "hello" })
+            .value("waige", function() { alert(111); })
+            .constant('constantName', 'constantValue')
+            .constant('myConstant', { food: "小炒肉" })
+            .config(['constantName', 'myConstant', function(constantName, myConstant) {
+
+                constantName = "hello";
+                myConstant.price = "18.5";
+
+            }])
+            .controller('myController', ['$scope', 'name', "waige", function($scope, name, waige) {
+
+                waige();
+
+
+                // console.log(name);
+                $scope.mine = {
+                    name: name.value
+                };
+
+                $scope.changeVal = function() {
+                    name.value = "歪哥";
+//                    $scope.mine.name = name;
+                    console.log(name.value);
+                    $scope.mine.name = name.value;
+
+                };
+
+            }])
+            .controller('secondController', ['$scope', 'name', 'constantName', 'myConstant', function($scope, name, constantName, myConstant) {
+
+                alert(constantName);
+                alert(myConstant.price);
+
+                $scope.mine = {
+                    name: name.value
+                };
+
+                $scope.changeVal = function() {
+                    alert(name.value);
+                    $scope.mine.name = name.value;
+
+                };
+
+            }]);
+
+            // constant 和 value创建服务的方式一样, 只不过constant创建的服务可以通过config进行配置, 而value创建的服务不能够进行配置
+            // constant创建的服务如果是值类型的话, config方法中不能够修改
+
+
+
+
+</script>

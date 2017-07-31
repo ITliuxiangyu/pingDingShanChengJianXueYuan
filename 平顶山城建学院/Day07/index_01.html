@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+	<body>
+		
+		<!--  
+			ng-controller可以嵌套
+			parentController的作用域是childController作用域的父作用域
+			子作用域继承于父作用域, 子作用域可以使用父作用域持有的对象和方法, 但是父作用域无法访问子作用的对象和方法
+
+			子作用域可以覆盖父作用域的对象和方法
+		 -->
+		<div ng-controller="parentController">
+			{{ mine.name }}
+			<button ng-click="changeVal()">点我啊</button>
+			<div ng-controller="childController">
+				{{ mine.name }}
+				<button ng-click="changeVal()">child</button>
+
+			</div>
+
+		</div>
+	</body>
+</html>
+<script src="angular.js"></script>
+<script>
+	var a = new Object();
+	a.name = "歪哥1";
+	var b = a;
+	console.log(a.name, b.name);
+	a.name = "帅哥";
+	console.log(a.name, b.name);
+
+
+
+
+	angular.module('myApp', [])
+	.controller('parentController', function($scope) {
+		// $scope.name = "歪哥";
+		$scope.mine = {
+			name: "歪哥"
+		};
+		$scope.changeVal = function() {
+			// $scope.name = "歪哥, from parent";
+			$scope.mine.name = "歪哥, from parent";
+		};
+
+	})
+	.controller('childController', function($scope) {
+		console.log($scope.name);
+		$scope.changeVal = function() {
+			// $scope.name = "歪哥, from child";
+			$scope.mine.name = "歪哥, from child";
+		};
+	});
+
+
+
+</script>

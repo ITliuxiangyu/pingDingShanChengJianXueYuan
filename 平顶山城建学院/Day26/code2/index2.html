@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>百度百科</title>
+    <style>
+        div {
+            width: 500px;
+            height: 300px;
+            background: yellow;
+            margin: 100px 0;
+            border: 2px solid red;
+        }
+
+        ul {
+            width: 300px;
+            position: fixed;
+            top: 40%;
+            right: 0;
+        }
+
+        ul>li {
+            color: blue;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body ng-controller="MyController">
+
+    <div ng-repeat="num in mine.idArr" id="{{ 'div' + $index }}">
+        {{ 'div' + num }}
+    </div>
+
+    <ul>
+        <li ng-repeat="num in mine.idArr" ng-click="mine.goToDiv($index)">
+            {{ '跳转到第' + num + "个div" }}
+        </li>
+    </ul>
+    
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('MyController', ['$scope', '$location', '$anchorScroll', function ($scope, $location, $anchorScroll) {
+
+                $scope.mine = {
+                    idArr: [1, 2, 3, 4, 5],
+                    goToDiv: goToDiv
+                };
+                function goToDiv(index) {
+
+                    $location.hash('div' + index);
+
+                }
+                
+                
+
+
+            }]);
+
+
+
+</script>

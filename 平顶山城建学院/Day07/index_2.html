@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+	<body>
+		<div ng-controller="firstController"></div>
+		
+	</body>
+</html>
+<script src="angular.js"></script>
+<script>
+	angular.module("myApp", [])
+	.controller("firstController", function($scope) {
+		$scope.person = {
+			name: "小明",
+			age: 20
+		};
+		$scope.animal = {
+			name: "泰迪",
+			age: 5
+		};
+
+		// angular.copy(source, destination)
+		// 该方法的作用把 source的内容拷贝到 destination
+
+		//  目标对象必须是对象, 如果是值类型, angular扩展时会报错
+		// angular.copy($scope.person.name, $scope.animal.name);
+		angular.copy($scope.person, $scope.animal);
+		console.log($scope.person, $scope.animal);
+
+		// 如果不写目标对象, 该方法会创建一个新的对象返回给函数
+		var result = angular.copy($scope.person);
+		console.log(result);
+
+		// angular.extend(destination, 参数1, 参数2, 参数3...)
+		// 刚方法给目标对象扩展属性和方法
+		$scope.man = { name: "歪哥" };
+		$scope.info = { age: 23, gender: "男", hobby: "美女" };
+		$scope.skill = {
+			playGames: function() { alert("哥会打魔兽") },
+			playDeskBall: function() { alert("哥会打台球") }
+		};
+		angular.extend($scope.man, $scope.info, $scope.skill);
+		console.log($scope.man);
+
+		$scope.arr = ["小刚", "小玉", "小星", "小涛"];
+		angular.forEach($scope.arr, function(data, index, array) {
+			console.log(data, index, array);
+		});
+
+		$scope.arr1 = [
+			{ name: "歪哥", gender: "男", age: 23 },
+			{ name: "小玉", gender: "女", age: 23 },
+			{ name: "小伟", gender: "男", age: 0 }
+		];
+		// angular.forEach()
+		// 第一个参数: 要遍历的对象
+		// 第二个参数: 回调函数, 第一个参数: 数组中的数据, 第二个参数: 下标, 第三个参数: 数组本身
+		angular.forEach($scope.arr1, function(data, index) {
+			console.log(data.name, data.gender, data.age);
+		});
+
+
+
+
+
+
+	});
+
+
+
+</script>

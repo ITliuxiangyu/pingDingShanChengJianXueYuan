@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div ng-controller="MyController">
+        <input my-directive ng-model="name">
+        {{ name }}
+    </div>
+
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+
+    angular.module('myApp', [])
+            .directive('myDirective', function () {
+
+                return {
+
+                    restrict: "A",
+                    require: "?ngModel",
+                    link: function ($scope, element, attrs, ngModelController) {
+
+                        if (!ngModelController) return;
+
+                        console.log(ngModelController);
+                        
+                    }
+
+
+
+
+                };
+                
+            })
+            .controller('MyController', ['$scope', function ($scope) {
+                $scope.name = "hello";
+            }]);
+
+//  1.  $viewValue: 视图上的值, 保存着更新视图上的字符串值
+//  2.  $modelValue: 模型上的值, 这两个字很多情况下都是一致的, 但是$viewValue上的值有可能和$modelValue上的值不同, 因为视图上的值传递给模型需要一个过程
+//  3. $parsers: 由很多函数组成的数组, 这里面的函数会以流水的形式被逐一调用, ngModel取到的DOM上的值会被传入到函数中作为参数
+//  4. $formatters: 由很多函数组成的数组, 以流水的形式被逐一调用, 这是用来处理数据格式的(格式化数据), 显示到DOM上
+//  5. $viewChangeListeners: 一个由函数组成的数组, 当视图上的值发生改变的时候, 数组中的函数也会以流水的形式被调用
+//  6. $error: 存放错误信息
+//  7. $pristine: 布尔值, 控件的值是不是初始状态, 如果是就为true, 否则为false
+//  8. $dirty: 值正好和$pristine相反, 如果用户操作了控件, 值为true
+//  9. $valid: 控件中的值是否有错误, 如果有错误就为false, 没有错误就为true
+//  10.$invalid: 值和$valid相反
+//  11. $render: 将模型中的值渲染到控件中
+
+
+
+
+
+
+
+
+</script>

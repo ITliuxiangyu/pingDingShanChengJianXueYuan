@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #move {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+
+
+    </style>
+</head>
+<body ng-controller="MyController">
+
+    <div id="move" ng-click="animte($event)"></div>
+
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<!-- CSS动画库 -->
+<script src="../lib/CSSPlugin.js"></script>
+<!-- 缓动动画库 -->
+<script src="../lib/EasePack.js"></script>
+<script src="../lib/TweenLite.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('MyController', ['$scope', function ($scope) {
+
+                $scope.animte = function (event) {
+
+                    TweenLite.to('#move', 3, {
+
+                        x: 600,
+                        y: 600,
+                        backgroundColor: 'yellow',
+//                        ease: Back.easeInOut
+
+//                        ease: Bounce.easeInOut
+//                        ease: Power1.easeInOut
+//                        ease: Power1.easeIn
+//                        ease: Strong.easeInOut
+
+
+                        ease: Elastic.easeInOut
+                    });
+
+                };
+
+
+            }]);
+    
+    
+    
+    
+</script>
+
+<!--
+Power(Power分为Power1、Power2、Power3、Power4四个级别)、Back、Strong、Bounce、Elastic
+其都有一些常用的缓动效果：
+Power1.easeIn    Power1.easeInOut    Power1.easeOut
+Back.easeIn    Back.easeInOut    Back.easeOut
+Strong 、Bounce和Elastic，使用方法也是一样的
+
+
+
+-->

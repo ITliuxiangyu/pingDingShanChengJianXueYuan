@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>过渡交错动画</title>
+    <style>
+
+        .move {
+            background-color: red;
+            width: 200px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .move.ng-enter {
+
+            transition: .3s linear;
+            transform: translateX(900px);
+            opacity: 0;
+            height: 0px;
+
+        }
+
+        .move.ng-enter-active {
+
+            transform: translateY(0px);
+            height: 50px;
+            opacity: 1;
+
+        }
+
+        .move.ng-enter-stagger {
+
+            transition-delay: 300ms;
+
+            /*
+                防止意外继承css基础类的保护, 如果意外继承了css样式, 该交错效果就会被忽略
+            */
+            -webkit-transition-duration: 0s;
+            -moz-transition-duration: 0s;
+            -ms-transition-duration: 0s;
+            -o-transition-duration: 0s;
+            transition-duration: 0s;
+
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+
+    <div ng-controller="MyController">
+
+        <div ng-repeat="name in mainModel.nameArray" class="move">
+
+            <span>{{ name }}</span>
+
+        </div>
+
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+    angular.module('myApp', ['ngAnimate'])
+            .controller('MyController', ['$scope', '$timeout', function ($scope, $timeout) {
+
+                // 这里面需要一个延迟时间
+                // $animate基于指令监测事件给指令元素添加类(ng-enter, ng-enter-active等), 不同的指令监测的事件不同, 比如: ng-repeat, ng-class监测的是数据的变化(所以这里面需要延迟一些时间添加数据), ng-if, ng-hide, ng-show监测的是DOM元素的显示隐藏, ng-view监测的是路由模板的变化等
+                $timeout(function () {
+
+                    $scope.mainModel = {
+                        nameArray: ["张三", "李四", "王二", "麻子"]
+                    };
+
+                }, 1);
+
+
+
+            }]);
+
+
+
+
+
+</script>

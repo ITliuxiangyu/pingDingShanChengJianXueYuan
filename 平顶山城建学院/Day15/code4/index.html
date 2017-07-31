@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div ng-controller="myController">
+        <button ng-click="mine.getData()">获取数据</button>
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('myController', ["$scope", "$http", function($scope, $http) {
+
+                $scope.mine = {
+                    getData: function () {
+
+                        $http({
+                            method: "get",
+                            url: "http://c.m.163.com/nc/article/headline/T1348647853363/0-140.html"
+                        }).then(function success(result) {
+                            console.log(result);
+                        }, function error(e) {
+
+                        });
+
+                    }
+                };
+            }]);
+
+
+</script>

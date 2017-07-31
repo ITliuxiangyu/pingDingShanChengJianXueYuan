@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <!--
+        Controller as name : 给控制器起一个别名
+    -->
+    <div ng-controller="MyController as main">
+        {{ main.name }}
+        {{ main.gender }}
+        {{ main.age }}
+    </div>
+
+    <div my-directive></div>
+
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="js/app.js"></script>

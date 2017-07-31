@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>ng-repeat</title>
+    </head>
+    <body>
+        <div ng-controller="myController">
+
+            <!-- 如果想按照属性就行排序, orderBy后面跟 属性名(字符串) -->
+            <button ng-repeat=" person in mine.people | orderBy : 'age' : true ">{{ person.name }} {{ person.age }}</button>
+
+            <br>
+            <button ng-repeat="(obj1, obj2) in mine.people">{{ obj1 }} {{ obj2 }}</button>
+
+            <br>
+            <!-- 可以对取出的数据进行排序 -->
+            <!-- 注意: 这里的track by $index必须写在最后面 -->
+            <button ng-repeat="data in mine.numArr | orderBy : '-' : true track by $index"> {{ data }} </button>
+
+
+        </div>
+
+    </body>
+</html>
+<script src="angular.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('myController', function($scope) {
+
+                $scope.mine = {
+
+                    people: [
+                        { name: "小玲", age: 19, gender: "男" },
+                        { name: "小志", age: 26, gender: "男" },
+                        { name: "小刚", age: 21, gender: "男" },
+                        { name: "小倩", age: 23, gender: "女" },
+                        { name: "小倩", age: 23, gender: "女" }
+                    ],
+
+                    numArr: [5, 3, 1, 4, 9, 1]
+                };
+
+            });
+    // ng-repeat 控制循环的一个指令 用法 ng-repeat=" obj in array ", 会给每一个对象绑定一个模板(DOM元素)
+    // ng-repeat 指令会给每一个取出的数据添加一个唯一标示, 如果取出的数据是number类型, 如果有重复的数组, 那么他们的标识就重复了, 就会报错, 解决方法: 在控制语句后面添加 track by $index
+
+
+</script>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div ng-controller="myController">
+
+        <!-- 原生写法 -->
+        <select name="" id="d">
+            <option value="banana">香蕉</option>
+            <option value="orange">橘子</option>
+            <option value="apple" selected>苹果</option>
+            <option value="pear">梨</option>C
+            <option value="grape">葡萄</option>
+        </select>
+        
+        <!-- 
+            fruit 是通过遍历 mine.fruitArray 取出的每一个对象
+            fruit.name 是取出 fruit对象中 name属性的值
+            fruit.name for fruit in mine.fruitArray
+
+         -->
+         <!-- 
+            注意: ng-options指令需要和ng-model同时使用, 否则会报错
+          -->
+          <!-- 
+            手动选择下拉列表内容
+           -->
+        <select name="" id="a" ng-model="mine.selected" ng-options="fruit.name for fruit in mine.fruitArray">
+            <option value="">请选择喜欢的水果</option>
+        </select>
+        
+        <!-- 默认选中apple -->
+        <!-- 
+            第一个fruit.name是selct 选中的内容, 和前面ng-model绑定的值一样
+            fruit.name as fruit.name for fruit in mine.fruitArray
+         -->
+        <select name="" id="c" ng-model="mine.selected" ng-options="fruit.name as fruit.name for fruit in mine.fruitArray"></select>
+
+
+
+
+
+
+
+
+    </div>
+
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="js/app.js"></script>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="HomeController">
+
+    <div ng-repeat="news in data.T1348647853363">
+
+        {{ news.title }}
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-resource.js"></script>
+<script>
+
+    angular.module('myApp', ['ngResource'])
+            .controller('HomeController', ['$scope', '$resource', function ($scope, $resource) {
+
+                var myUrl = "http://c.m.163.com/nc/article/headline/T1348647853363/0-20.html";
+                var url = "http://localhost:3000?myUrl=" + myUrl + '&callback=JSON_CALLBACK';
+
+                var obj = $resource(url, {}, {
+                    jsonp: {
+                        method: "jsonp",
+//                        timeout: 5000,
+                        url: url,
+                        params: {
+//                            name: "xiao",
+//                            age: 18
+                        },
+
+                        // 如果后台需要的数据需要经过处理, 比如排序等等, 这个时候我们就可以在该方法中进行处理
+                        transformRequest:function(data, hearFn) {
+//                            console.log(data);
+//                            console.log(hearFn);
+                            JSON.stringify(data);
+
+                        },
+
+                        // 可以在这里对返回的数据做一些处理
+//                        transformResponse: function (data, hearFn) {
+////                            console.log(11111);
+////                            console.log(data);
+////                            JSON.parse(data);
+//
+//                        }
+                    }
+                });
+                $scope.data = obj.jsonp();
+                console.log($scope.data);
+                
+            }]);
+
+
+</script>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <div ng-controller="firstController">
+            {{ name }}
+
+        </div>
+
+    </body>
+</html>
+<script src="angular.js"></script>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('firstController', function($rootScope, $scope) {
+
+        $rootScope.name = "歪哥";
+        $rootScope.go = function () {
+          alert(123);
+        };
+
+
+
+        // 创建控制器的时候 angualar会帮我们自动生成一个作用域 $scope, $scope继承于$rootScope, $rootScope持有的对象和方法, $scope都可以使用
+        console.log($scope.name);
+        $scope.go();
+
+
+    });
+
+
+
+</script>

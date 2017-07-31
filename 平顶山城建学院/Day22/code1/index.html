@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM操作</title>
+</head>
+<body>
+
+    <div ng-controller="MyController">
+
+        <div id="myDiv">Hello, 大家好!</div>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('MyController', ['$scope', '$document', function ($scope, $document) {
+
+
+                // 创建一个元素
+                var oDiv = angular.element('<div>青云志</div>');
+
+                // 获取元素中的内容
+                console.log(oDiv.html());
+
+
+                console.log($document);
+
+                // $document = angular.element(document)
+                var doc = angular.element(document);
+                console.log(doc);
+
+
+                // $document[0] = 原生document
+//                var myDiv = $document[0].getElementById('myDiv');
+//                console.log(myDiv);
+
+                var myDiv = angular.element($document[0].querySelector('#myDiv'));
+
+
+                myDiv.html("Hello, 青云");
+
+
+                myDiv.append(oDiv);
+
+
+
+
+
+
+
+
+            }]);
+
+
+
+
+
+</script>

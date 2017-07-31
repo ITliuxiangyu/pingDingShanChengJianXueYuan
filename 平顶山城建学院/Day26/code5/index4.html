@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div ng-controller="HomeController">
+
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-resource.js"></script>
+<script>
+    angular.module('myApp', ['ngResource'])
+            .factory('MyFactory', ['$resource', function ($resource) {
+                
+                return {
+                    getData: function () {
+                        var myUrl = "http://c.m.163.com/nc/article/headline/T1348647853363/0-20.html";
+                        var url = "http://localhost:3000?myUrl=" + myUrl + "&callback=JSON_CALLBACK";
+                        var obj = $resource(url, {}, {jsonp: {method: "jsonp"}});
+                        return obj.jsonp();
+                    }
+                };
+                
+            }])
+            .controller('HomeController', ['$scope', 'MyFactory', function ($scope, MyFactory) {
+
+                // $resource服务写法更简洁, 这样写可以先出现页面, 数据请求成功以后才会渲染,
+                // resolve: 如果返回的promise对象, 只要网络请求没有成功, 控制器就不会被实例化(页面不会出现 | 有一种卡顿现象)
+                $scope.data = MyFactory.getData();
+                console.log($scope.data);
+
+            }]);
+
+
+
+
+</script>

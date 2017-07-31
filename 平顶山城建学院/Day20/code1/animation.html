@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            left: calc(50% - 50px);
+            top: calc(50% - 50px);
+
+            /*
+                animation-direction:
+                    normal: 正方向
+                    reverse: 反方向
+                    alternate: 奇数次正方向, 偶数次反方向
+                    alternate-reverse: 偶数次正方向, 奇数次反方向
+
+            */
+            /*
+                animation-fill-mode:
+                    forwards: 保留最后一帧动画效果
+                    backwards: 当有延迟时间的时候, 保持关键帧动画中的0%的状态
+                    both: 兼容两者
+
+            */
+
+
+            animation: scroll 2s linear 3s 2 alternate-reverse backwards;
+        }
+        
+        @keyframes scroll {
+
+            0% {
+                transform: translateX(-100px) rotate(0deg);
+            }
+            100% {
+                transform: translateX(200px) rotate(360deg);
+            }
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div></div>
+
+</body>
+</html>

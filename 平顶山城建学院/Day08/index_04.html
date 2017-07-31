@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>模糊查询</title>
+    </head>
+    <body>
+
+        <div ng-controller="myController">
+            <input type="text" ng-model="value" ng-change="changeVal()">
+
+            <ul ng-repeat="food in mine.dataArr | orderBy : 'price' ">
+                <li>食物名称: {{ food.name }}, 食物价格: {{ food.price }}</li>
+            </ul>
+            
+
+        </div>
+
+    </body>
+</html>
+<script src="angular.js"></script>
+<script>
+    angular.module('myApp', [])
+           .controller("myController", function($scope, $filter) {
+
+               $scope.mine = {
+                 food: [
+                     { name: "酸辣土豆丝", price: 8 },
+                     { name: "猪肉炖粉条", price: 15 },
+                     { name: "铁锅炖大鹅", price: 998 },
+                     { name: "酸辣白菜", price: 11 },
+                     { name: "麻辣豆腐", price: 10 },
+                     { name: "大葱蘸酱", price: 20 },
+                     { name: "蒜摊炒肉", price: 18 },
+                     { name: "王八汤", price: 25 },
+                     { name: "燕窝粥", price: 30 }
+                 ],
+
+                 dataArr: []
+               };
+
+               $scope.changeVal = function() {
+
+                    // 取到过滤后的数据
+                    $scope.mine.dataArr = $filter('myFilter')($scope.mine.food, $scope.value);
+
+               };
+
+
+
+           })
+           .filter('myFilter', function() {
+
+                return function(obj, str) {
+
+                    var newArr = [];
+
+                    angular.forEach(obj, function(food, index) {
+
+                        // 如果food中的名字中包含str, 或者 price中包含str, 那么就把该food添加到新的数组当中
+
+                        // 输入框中的内容不为 "" (空字符串)
+                        if (str) {
+                            if (food.name.indexOf(str) != -1 || (food.price +  "").indexOf(str) != -1 ) {
+                                newArr.push(food);
+                            }
+                        }
+
+                    });
+
+                    return newArr;
+
+                };
+
+           });
+
+
+
+
+</script>

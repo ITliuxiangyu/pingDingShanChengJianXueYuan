@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div hello my-directive-hi  hi my-directive-hello ></div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+
+    angular.module('myApp', [])
+            .directive('myDirectiveHello', function () {
+
+                return {
+                    restrict: 'A',
+                    priority: 1,
+                    replace: true,
+                    link: function () {
+                        console.log(1111111);
+                    }
+
+                };
+                
+            })
+            .directive('hello', function () {
+                return {
+                    restrict: 'A',
+                    // 指令优先级, 决定着指令执行的顺序
+                    priority: 4,
+
+                    // 该属性默认值为false, 如果值为true的话, 比该指令优先级低的指令就不会再执行, 换句话说, 如果一个指令设置该属性为true, 那么该指令所在元素或者该指令元素内就不要再写优先级比该指令优先级低的指令了  (优先级和该指令相同的指令也会执行)
+                    terminal: false,
+                    link: function () {
+                        console.log("222222++++++");
+                    }
+
+                }
+            })
+            .directive('myDirectiveHi', function () {
+
+                return {
+                    restrict: 'A',
+                    priority: 4,
+                    replace: false,
+                    link: function () {
+                        console.log(22222);
+                    }
+                }
+            })
+
+            .directive('hi', function () {
+                return {
+                    restrict: 'A',
+                    priority: 3,
+                    link: function () {
+                        console.log("3333333333333");
+                    }
+                }
+            });
+
+</script>

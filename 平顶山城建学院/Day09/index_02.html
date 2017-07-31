@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+	<body>
+		<!-- 
+			ng-if: 如果值为true, 就显示, 如果值为false就不显示, 并且该元素也不会存在在DOM结构中
+
+			ng-show/ng-hide: 值为ture的时候 就 显示/隐藏, 值为false的时候就 隐藏/显示, 隐藏时并不会从DOM结构中移除
+		 -->
+		<div ng-controller="myController">
+			<div ng-if="mine.isShow">Hi, beautiful gilr!</div>
+			<div ng-show="mine.isShow">Hi, marry me</div>
+			<div ng-hide="mine.isShow">Hi, you are beautiful</div>
+			<button ng-click="changeVal()">点击</button>
+		</div>
+
+		
+	</body>
+</html>
+<script src="angular.js"></script>
+<script>
+	angular.module('myApp', [])
+		.controller('myController', function($scope) {
+
+			$scope.mine = {
+				isShow: true
+			};
+
+			$scope.changeVal = function() {
+				$scope.mine.isShow = !$scope.mine.isShow;
+			};
+
+		});
+
+
+
+
+</script>

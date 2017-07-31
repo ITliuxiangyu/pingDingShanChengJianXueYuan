@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>过滤器</title>
+	</head>
+	<body>
+		<div ng-controller="firstController">
+			<!-- {{ mine.money }} -->
+			<!-- <p ng-bind="mine.money"></p> -->
+
+			<!-- 
+				内置过滤器
+			 -->
+			 <!-- 
+				| 通道, 可以把输入的数据格式化, 把格式化后的数据返回
+				: 后面跟的是参数
+				currency: 默认给数据前面加个美元符号, 我们可以通过参数来修改这个符号
+			  -->
+			 {{ mine.money | currency : "*" }}
+
+			 <br>
+			 {{ mine.today | date : "short" }}
+			 <br>
+			 {{ mine.today | date : "medium" }}
+			 <br>
+			 {{ mine.today | date : "yyyy" }}
+			 <br>
+			 {{ mine.today | date : "yyyy-MM-dd HH:mm:ss" }}
+
+
+
+		</div>
+		
+	</body>
+</html>
+<script src="angular.js"></script>
+<script>
+	angular.module('myApp', [])
+		.controller('firstController', function($scope, $timeout) {
+			$scope.mine = {
+				money: 1000,
+				today: new Date()
+			};
+			$scope.timeFunc = function() {
+				$timeout(function() {
+					$scope.mine.today = new Date();
+					$scope.timeFunc();
+				}, 500);
+			};
+			$scope.timeFunc();
+
+		});
+	
+
+
+
+</script>

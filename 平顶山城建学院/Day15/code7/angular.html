@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div ng-controller="myController">
+
+        <button ng-click="mine.getData()">请求数据</button>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+
+    angular.module('myApp', [])
+            .controller('myController', ['$scope', '$http', function ($scope, $http) {
+
+                $scope.mine = {
+                    getData: function () {
+                        var myUrl = "http://c.m.163.com/nc/article/headline/T1348647853363/0-10.html";
+                        $http({
+                            method: "jsonp",
+                            // 注意, 这里面callback参数的值必须写成JSON_CALLBACK, 意思是告诉angular自己创建一个回调函数, 和ajax一样, ajax不用传回调函数, 因为ajax会自己随机创建一个, 这点和原生写法不一样
+                            url: "http://localhost:3000?myUrl=" + myUrl + "&callback=JSON_CALLBACK"
+                        }).then(function success(result) {
+                            console.log(result);
+                        }, function error(e) {
+                            console.log(e);
+                        });
+                    }
+                };
+            }]);
+
+
+
+
+
+</script>

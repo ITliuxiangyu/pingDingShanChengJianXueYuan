@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        /*
+            过渡
+        */
+        /*.template.ng-enter {*/
+            /*transition: 2s linear;*/
+            /*transform: translateX(900px);*/
+        /*}*/
+
+        /*.template.ng-enter-active {*/
+            /*transform: translateX(0px);*/
+        /*}*/
+
+        /*.template.ng-leave {*/
+
+            /*transition: 2s linear;*/
+            /*!*transform: translateX(900px);*!*/
+            /*opacity: 1;*/
+        /*}*/
+
+        /*.template.ng-leave-active {*/
+
+            /*transition: 2s linear;*/
+            /*!*transform: translateX(900px);*!*/
+            /*opacity: 0;*/
+        /*}*/
+
+
+        .template.ng-enter {
+            animation: enter 2s linear;
+            
+        }
+        
+        @keyframes enter {
+            from {
+                width: 300px;
+                height: 0px;
+                background-color: red;
+            }
+            to {
+                width: 300px;
+                height: 300px;
+                background-color: green;
+
+            }
+        }
+
+        .template.ng-leave {
+            animation: leave 2s linear;
+
+        }
+
+        @keyframes leave {
+            from {
+                width: 300px;
+                height: 300px;
+                background-color: green;
+            }
+            to {
+                width: 300px;
+                height: 0;
+                background-color: red;
+
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div ng-controller="MyController">
+
+        <select ng-model="template" ng-options="template.url for template in templateArr"></select>
+
+        <div ng-include="template.url" class="template"></div>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+
+    angular.module('myApp', ['ngAnimate'])
+            .controller('MyController', ['$scope', '$timeout', function ($scope, $timeout) {
+
+                $scope.templateArr = [
+                    { url : "other.html"},
+                    { url : "test.html"}
+                ];
+
+                $timeout(function () {
+
+                    $scope.template = $scope.templateArr[0];
+
+                }, 1);
+
+
+
+            }]);
+
+
+
+
+</script>

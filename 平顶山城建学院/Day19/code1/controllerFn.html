@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div my-directive class="waige">
+
+        百度一下
+
+    </div>
+
+    <hello></hello>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+
+    angular.module('myApp', [])
+            .directive('myDirective', function () {
+
+                return {
+
+                    restrict: "A",
+                    transclude: true,
+                    // 控制器对应的值也可以是一个函数
+                    controller: ['$scope', '$attrs', '$log', '$element', '$transclude', function ($scope, $attrs, $log, $element, $transclude) {
+
+                        $log.info($element);
+                        $log.info($attrs);
+
+                        $transclude(function (clone) {
+
+                            $log.info(clone.text());
+                            $log.info($element);
+
+                            // 创建 a 标签元素
+                            var a = angular.element('<a>');
+
+                            // 设置超链接属性
+                            a.attr('href', "http://www.baidu.com");
+
+                            // 给a元素添加内容
+                            a.text(clone.text());
+
+                            // 拼接
+                            $element.append(a);
+
+                        });
+
+
+
+                    }]
+
+
+
+                };
+
+
+
+                
+            })
+            .directive('hello', function () {
+
+                return {
+
+                    restrict: "E",
+                    // 给控制器起一个别名
+                    controllerAs: "waige",
+                    template: "<div>{{ waige.name }}</div>",
+                    
+                    controller: function () {
+                        this.name = "大家好";
+                    }
+
+                };
+                
+            });
+
+
+
+
+
+
+</script>

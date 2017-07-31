@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div ng-controller="MyController">
+        <div my-directive>
+            <h3>大家好, 我是新来的帅哥 {{ name }}</h3>
+        </div>
+    </div>
+
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+
+    angular.module('myApp', [])
+            .directive('myDirective', function () {
+
+                return {
+
+                    restrict: "A",
+                    scope: {},
+                    // 嵌入, 默认值为false, 如果为true, 会把指令对应的元素里面的内容嵌入到 具有 ng-transclude指令的模板元素中, ng-transclude指令会创建一个继承于父作用域的作用域, 即使该指令是隔离的作用域
+                    transclude: true,
+                    template: "<div>hello, angular!</div><div ng-transclude></div><div ng-transclude></div>"
+
+
+
+
+                };
+
+                
+            })
+            .controller('MyController', ['$scope', function ($scope) {
+                $scope.name = "hi";
+            }]);
+
+
+
+
+</script>

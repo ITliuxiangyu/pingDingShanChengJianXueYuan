@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div ng-controller="myController">
+
+        <button ng-click="mine.getData()">获取数据</button>
+
+    </div>
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('myController', ['$scope', '$http', function ($scope, $http) {
+
+                $scope.mine = {
+                    getData: function () {
+
+                        var myUrl = "http://c.m.163.com/nc/article/headline/T1348647853363/0-20.html";
+                        var url = "http://localhost:3333";
+
+                        var promise = $http({
+
+                            method: "POST",
+                            url: url,
+                            data: {
+                                myUrl: myUrl
+                            },
+                            headers: {
+                                "Content-Type": "text/plain"
+                            }
+
+                        });
+
+                        console.log(promise);
+                        promise.success(function (data) {
+
+                        });
+                        promise.error(function (e) {
+
+                        });
+
+                        // 还可以这样写
+                        promise.then(function successCallBack(data) {
+
+                        }, function errorCallBack(e) {
+
+                        });
+
+                    }
+                };
+                
+            }]);
+    
+    
+    
+    
+</script>

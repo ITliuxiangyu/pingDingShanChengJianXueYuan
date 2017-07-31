@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div ng-controller="RootController">
+
+        <button ng-click="broadcast()">传播</button>
+
+        <div ng-controller="ParentController">
+
+            <div ng-controller="ChildController">
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('RootController', ['$scope', function ($scope) {
+
+                $scope.broadcast = function () {
+
+                    // $broadcast服务:
+                    // 用法基本和$emit服务一样, 只不过消息向下传播(从父作用域向子作用域)
+                    $scope.$broadcast('hello', 'world');
+
+                };
+                $scope.name = "waige";
+                
+            }])
+            .controller('ParentController', ['$scope', function ($scope) {
+                
+                $scope.$on('hello', function (event, msg) {
+
+                    // 属性参考$emit服务, 这里不再赘述
+                    console.log("Parent 收到消息: " + msg);
+                    console.log(event.name);
+                    console.log(event.targetScope.name);
+                    
+                });
+
+
+                
+            }])
+            .controller('ChildController', ['$scope', function ($scope) {
+
+                $scope.$on('hello', function (event, msg) {
+
+                    console.log("Child 收到消息: " + msg);
+
+                });
+
+
+                
+            }]);
+
+
+
+
+</script>

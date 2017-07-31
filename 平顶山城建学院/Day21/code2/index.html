@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .content {
+            width: 300px;
+            height: 300px;
+            border: 2px solid black;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button {
+            width: 300px;
+            height: 300px;
+            font-size: 25px;
+            background-color: red;
+            left: 0;
+        }
+        button.other {
+            background-color: green;
+        }
+
+
+        /* 过渡 */
+        /*.template.ng-enter {*/
+            /*transition: all 2s linear;*/
+            /*position: absolute;*/
+            /*!*opacity: 0;*!*/
+            /*left: 300px;*/
+        /*}*/
+
+        /*.template.ng-enter.ng-enter-active {*/
+            /*position: absolute;*/
+            /*!*opacity: 1;*!*/
+            /*left: 0px;*/
+        /*}*/
+
+        /*.template.ng-leave {*/
+            /*transition: 2s linear;*/
+            /*opacity: 1;*/
+        /*}*/
+        /*.template.ng-leave-active {*/
+            /*opacity: 0;*/
+        /*}*/
+
+        /* 关键帧 */
+        .template.ng-enter {
+            position: absolute;
+            animation: enter .2s linear;
+
+        }
+
+        @keyframes enter {
+
+            from {
+                left: 300px;
+            }
+            to {
+                left: 0px;
+            }
+        }
+
+        .template.ng-leave {
+            position: absolute;
+            animation: leave .2s linear;
+
+        }
+        @keyframes leave {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+<div class="content">
+    <ng-view class="template"></ng-view>
+</div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-route.js"></script>
+<script src="../lib/angular-animate.js"></script>
+<script>
+    angular.module('myApp', ['ngAnimate', 'ngRoute'])
+            .config(['$routeProvider', function ($routeProvider) {
+
+                $routeProvider.when("/", {
+                    templateUrl: "home.html",
+                    controller: "MyController"
+                });
+                $routeProvider.when("/other", {
+                    templateUrl: "other.html",
+                    controller: "MyController"
+                });
+                $routeProvider.otherwise("/");
+            }])
+            .controller("MyController", ['$scope', '$location', function ($scope, $location) {
+
+                $scope.mainModel = {
+
+                    goToNewView: function () {
+
+                        $location.path('/other');
+
+                    },
+                    goBack: function () {
+                        window.history.go(-1);
+                    }
+
+                };
+
+
+            }]);
+
+
+
+
+
+
+
+</script>

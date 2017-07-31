@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div ng-controller="RootController">
+
+        <button ng-click="changeVal()">Root</button>
+
+
+        <div ng-controller="ParentController">
+
+            <button ng-click="changeVal()">parent</button>
+
+            <div ng-controller="ChildController">
+
+                <h2>{{ name }}</h2>
+
+                <button ng-click="emit()">开始传播</button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</body>
+</html>
+<script src="../lib/angular.js"></script>
+<script>
+    angular.module('myApp', [])
+            .controller('RootController', ['$scope', function ($scope) {
+                
+                $scope.$on('hello', function (event, msg) {
+
+                    console.log("RootController 收到消息: " + msg);
+                    $scope.changeVal = function () {
+                        event.targetScope.name = "Root修改的值";
+                        event.targetScope.printVal();
+                    };
+                    
+                });
+
+
+                
+            }])
+            .controller('ParentController', ['$scope', function ($scope) {
+
+                $scope.$on('hello', function (event, msg) {
+
+                    console.log("Parent 收到消息: " + msg);
+                    
+                    $scope.changeVal = function () {
+                        event.targetScope.name = "Parent修改的值";
+                        event.targetScope.printVal();
+                    };
+
+
+                });
+                
+            }])
+            .controller('ChildController', ['$scope', function ($scope) {
+
+
+                $scope.emit = function () {
+
+                    $scope.$emit('hello', "world");
+                    
+                };
+
+                $scope.name = "歪哥";
+                $scope.printVal = function () {
+                    alert($scope.name);
+                };
+
+
+                
+            }]);
+
+
+
+
+
+
+
+</script>
